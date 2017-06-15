@@ -27,8 +27,10 @@ Many cataloging systems have practices that are surely not general usage, but th
 
 A real-world example:
 
-    ```else if (fieldcode == "650") {
+    ```
+    else if (fieldcode == "650") {
         if (line.substring(10) == "Rap (Music)") {
             termfullstop = false;  // do not terminate the entry with a period.
         }
-    }```
+    }
+    ```

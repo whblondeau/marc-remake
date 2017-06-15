@@ -23,7 +23,7 @@ The MARC formats will be:
 There will be roundtripping (as time permits) where there is no data loss.
 
 ### Idiosyncratic practices
-Many cataloging systems have practices that are surely not general usage, but that Rabble is obligated to continue to suppoert.
+Many cataloging systems have practices that are surely not general usage, but that Rabble is obligated to continue to support.
 
 A real-world example:
 
@@ -34,3 +34,5 @@ A real-world example:
         }
     }
     ```
+    
+This needs to be easily understood, found, modified, and implemented: preferably in config declaration rather than in code.

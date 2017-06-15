@@ -21,3 +21,14 @@ The MARC formats will be:
 "JSON" format does _not_ refer to the "MARCjson" proposed form. It means 
 
 There will be roundtripping (as time permits) where there is no data loss.
+
+### Idiosyncratic practices
+Many cataloging systems have practices that are surely not general usage, but that Rabble is obligated to continue to suppoert.
+
+A real-world example:
+
+    ```else if (fieldcode == "650") {
+        if (line.substring(10) == "Rap (Music)") {
+            termfullstop = false;  // do not terminate the entry with a period.
+        }
+    }```

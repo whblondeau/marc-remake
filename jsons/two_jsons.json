@@ -1,0 +1,242 @@
+[{
+    "album": {
+        "id": "your-heart-breaks-america",
+        "asset_type": "album",
+        "title": "America",
+        "front_cover_art": "https://playback-jsfs.spl.org/complete-submission/albums/your-heart-breaks-america/yhb_america-1.jpg",
+        "main_artist": "your-heart-breaks",
+        "main_artist_name": "Your Heart Breaks",
+        "release_date": "2016-01-01T08:00:00.000Z",
+        "record_label": "Independent",
+        "upc": null,
+        "genre": "Rock",
+        "badge_image": null,
+        "badge_tag": null,
+        "spoken_languages": "english",
+        "auth_required_to_stream": false,
+        "tracks": [{
+            "title": "Shoulda Known Better",
+            "filename": "01 Shoulda Known Better.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/01-shoulda-known-better--1467251488000.aiff",
+            "position": 1,
+            "duration": 132.03373015873015,
+            "access_token": "59d98f58ce3def54e9e12932f2cc3c8f90b1695e"
+        }, {
+            "title": "1999",
+            "filename": "08 1999.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/08-1999--1467251777000.aiff",
+            "position": 8,
+            "duration": 125.8670634920635,
+            "access_token": "b9673491083fa1a18035a99ba59278fed4936e6c"
+        }, {
+            "title": "Of Alcohol",
+            "filename": "06 Of Alcohol.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/06-of-alcohol--1467251777000.aiff",
+            "position": 6,
+            "duration": 174.90039682539683,
+            "access_token": "86399527176da399dc48c3d81dde2c9273b0dd20"
+        }, {
+            "title": "Coast To Coast",
+            "filename": "05 Coast To Coast.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/05-coast-to-coast--1467251777000.aiff",
+            "position": 5,
+            "duration": 116.8670634920635,
+            "access_token": "e4770235c84cd1551b39bc0cefc861475104b24b"
+        }, {
+            "title": "Homeward Bound",
+            "filename": "10 Homeward Bound.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/10-homeward-bound--1467252449000.aiff",
+            "position": 10,
+            "duration": 217.2670634920635,
+            "access_token": "d4ffc1b70fb63cd99cc456551c51e7a3aa3f0daf"
+        }, {
+            "title": "The Echo And The Ocean (For Arthur Russell)",
+            "filename": "02 The Echo And The Ocean.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/02-the-echo-and-the-ocean--1467252654000.aiff",
+            "position": 2,
+            "duration": 218.7670634920635,
+            "access_token": "c45b2ab1a400392761e5484f92cf242633814004"
+        }, {
+            "title": "The Tide And Current Taxi (http://www.tideandcurrenttaxi.org)",
+            "filename": "03 The Tide And CurrentTaxi.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/03-the-tide-and-currenttaxi--1467259805000.aiff",
+            "position": 3,
+            "duration": 173.4670634920635,
+            "access_token": "2558ddd03a329b611e23c2c3559903887c441039"
+        }, {
+            "title": "Phoenix Rises ",
+            "filename": "07 Phoenix Rises.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/07-phoenix-rises--1467260385000.aiff",
+            "position": 7,
+            "duration": 143.1670634920635,
+            "access_token": "0ae052fb89946314ef8d14a767edbac9514ea7a5"
+        }, {
+            "title": "Spring Break ",
+            "filename": "09 Spring Break.aiff",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/09-spring-break--1467260448000.aiff",
+            "position": 9,
+            "duration": 132.23373015873017,
+            "access_token": "8e7da0c387ef2c874c3f7761393dc1a11ed5b998"
+        }, {
+            "title": "Santa Cruzin (For the Lost Boys) ",
+            "filename": "04 Santa Cruzin.mp3",
+            "url": "https://playback-jsfs.spl.org/complete-submission/your-heart-breaks-america/04-santa-cruzin--1467261800000.mp3",
+            "position": 4,
+            "duration": 125.33650793650794,
+            "access_token": "c01f9846cc5aef7bb3e4864bf0c78daa85735232"
+        }]
+    },
+    "owner": "ee7391caa51ae97ca139fb8fffe4cb3749606b21"
+}, {
+    "album": {
+        "id": "dunava-bulgaria",
+        "asset_type": "album",
+        "title": "Bulgaria",
+        "front_cover_art": "https://playback-jsfs.spl.org/complete-submission/albums/dunava-bulgaria/dunava-bulgaria-cover.jpg",
+        "main_artist": "dunava",
+        "main_artist_name": "Dunava",
+        "release_date": "2013-07-31T00:00:00.000Z",
+        "record_label": "Independent",
+        "upc": null,
+        "genre": "Folk",
+        "badge_image": null,
+        "badge_tag": null,
+        "spoken_languages": "Bulgarian",
+        "auth_required_to_stream": false,
+        "tracks": [{
+            "title": "Kaval Sviri",
+            "filename": "Dunava-Bulgaria-02-KavalSviri.flac",
+            "url": "https://playback-jsfs.spl.org/submissions/dunava-bulgaria-1463612477261/dunava-bulgaria-02-kavalsviri--1463613548000.flac",
+            "position": 2,
+            "duration": 121.07945578231292,
+            "access_token": "a7c0071b78ca87c79109213945e350db57c97782"
+        }, {
+            "title": "Introduction Kaval",
+            "filename": "Dunava-Bulgaria-01-IntroductionKaval.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-01-introductionkaval--1468132434000.flac",
+            "position": 1,
+            "duration": 35.55472789115646,
+            "access_token": "5716c40de38a112c571dad0a4687eb9948f1fc15"
+        }, {
+            "title": "Oi Mori Kavale",
+            "filename": "Dunava-Bulgaria-03-OiMoreKavale.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-03-oimorekavale--1468132910000.flac",
+            "position": 3,
+            "duration": 193.30804988662132,
+            "access_token": "58f3f23be4988595b88cf3ccd174af6ce3c185a5"
+        }, {
+            "title": "Begala E Vena",
+            "filename": "Dunava-Bulgaria-04-BegalaEVena.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-04-begalaevena--1468133100000.flac",
+            "position": 4,
+            "duration": 152.21742630385486,
+            "access_token": "df4473def79b8e3af121728ed7ad15b911361402"
+        }, {
+            "title": "Spava Mi Se",
+            "filename": "Dunava-Bulgaria-05-SpavaMiSe.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-05-spavamise--1468133253000.flac",
+            "position": 5,
+            "duration": 99.00598639455782,
+            "access_token": "239b60567f8436e8c81d1b1373cac609fc5fd806"
+        }, {
+            "title": "Gaidine Svirat",
+            "filename": "Dunava-Bulgaria-06-GaidineSvirat.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-06-gaidinesvirat--1468133369000.flac",
+            "position": 6,
+            "duration": 96.57662131519274,
+            "access_token": "5ef34443065866bfc63babddf9689425e32f4f5f"
+        }, {
+            "title": "Njakoi Tropa Lopa",
+            "filename": "Dunava-Bulgaria-07-NjakoiTropaLopa.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-07-njakoitropalopa--1468133467000.flac",
+            "position": 7,
+            "duration": 86.51948979591836,
+            "access_token": "5a15481e21514e8b23f3f227c34fd92832bdd75b"
+        }, {
+            "title": "Sidjala Dona Rado Ljo",
+            "filename": "Dunava-Bulgaria-08-SidjalaDonaRadoLjo.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-08-sidjaladonaradoljo--1468133573000.flac",
+            "position": 8,
+            "duration": 138.00685941043085,
+            "access_token": "2ff95aa4fcc5ca322cf411d7895afaca2c0f1c1b"
+        }, {
+            "title": "Prehvrukna Ptichka",
+            "filename": "Dunava-Bulgaria-09-PrehvruknaPtichka.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-09-prehvruknaptichka--1468133712000.flac",
+            "position": 9,
+            "duration": 112.32848072562358,
+            "access_token": "28fd2288a0441cf290ac82f7b78d8bfe82e2317c"
+        }, {
+            "title": "Shopski Pripevki",
+            "filename": "Dunava-Bulgaria-10-ShopskiPripevki.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-10-shopskipripevki--1468133832000.flac",
+            "position": 10,
+            "duration": 129.07297052154195,
+            "access_token": "ebc63d607f76ffa4c588d1bbf698f611adf52d1b"
+        }, {
+            "title": "Zalibih Si",
+            "filename": "Dunava-Bulgaria-11-ZalibihSi.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-11-zalibihsi--1468133986000.flac",
+            "position": 11,
+            "duration": 123.43048752834467,
+            "access_token": "fcd64db6007089e4ad7f92bfef29e52cbb7c22be"
+        }, {
+            "title": "Mori Aida Aida",
+            "filename": "Dunava-Bulgaria-12-MoriAidaAida.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-12-moriaidaaida--1468134144000.flac",
+            "position": 12,
+            "duration": 190.35622448979592,
+            "access_token": "26744ed40ca57b134ae152ce427fc462e97ba0e3"
+        }, {
+            "title": "Snoshti Si Zdode",
+            "filename": "Dunava-Bulgaria-13-SnoshtiSiZdode.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-13-snoshtisizdode--1468134351000.flac",
+            "position": 13,
+            "duration": 223.9497052154195,
+            "access_token": "bf5b0ef70fd2f49c00dceb23e1efd3200c76a14b"
+        }, {
+            "title": "Katerino Mome",
+            "filename": "Dunava-Bulgaria-14-KaterinoMome.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-14-katerinomome--1468134681000.flac",
+            "position": 14,
+            "duration": 162.53580498866214,
+            "access_token": "fecf3b4cdc56a34b6baf97ba5b5a23aa545c5469"
+        }, {
+            "title": "Sidjankata E Na Razvala",
+            "filename": "Dunava-Bulgaria-15-SedjankataENaRazvala.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-15-sedjankataenarazvala--1468134886000.flac",
+            "position": 15,
+            "duration": 138.45096371882087,
+            "access_token": "1d1875cd5bca90f57cb9c34c639d92d79767961a"
+        }, {
+            "title": "Pasla Dana-Dai Si Vase",
+            "filename": "Dunava-Bulgaria-16-PaslaDanaDaiSiVase.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-16-pasladanadaisivase--1468135235000.flac",
+            "position": 16,
+            "duration": 99.50240362811792,
+            "access_token": "dac1e2f680b2a6167da5c80cdb414cdb9a78372b"
+        }, {
+            "title": "Trugnala E Malka Moma",
+            "filename": "Dunava-Bulgaria-17-TrugnalaEMalkaMoma.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-17-trugnalaemalkamoma--1468135349000.flac",
+            "position": 17,
+            "duration": 185.18401360544217,
+            "access_token": "834a215f4f8d618de08643849366f37547fd3763"
+        }, {
+            "title": "Nauchil Sa I Dobri",
+            "filename": "Dunava-Bulgaria-18-NauchilSaIDobri.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-18-nauchilsaidobri--1468135540000.flac",
+            "position": 18,
+            "duration": 136.90971655328798,
+            "access_token": "c57ffc9c824ae0600575d3219e1b1267b63176b0"
+        }, {
+            "title": "Rasodi Se Tenka Neda",
+            "filename": "Dunava-Bulgaria-19-RasodiSeTenkaNeda.flac",
+            "url": "https://playback-jsfs.spl.org/complete-submission/dunava-bulgaria/dunava-bulgaria-19-rasodisetenkaneda--1468135685000.flac",
+            "position": 19,
+            "duration": 128.28931972789115,
+            "access_token": "f504bd095c09d9d47c69a1a4ac253e82c1683d5f"
+        }]
+    },
+    "owner": "ee7391caa51ae97ca139fb8fffe4cb3749606b21"
+}]

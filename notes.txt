@@ -1,0 +1,11 @@
+https://playback-api.spl.org/public/albums/cock-and-swan-splurge-land?collection=org.spl.playback&req_content_type=marc-bin
+
+https://boombox-api.libra.org/public/albums/cock-and-swan-splurge-land?collection=org.spl.playback&req_content_type=marc-bin
+
+
+James's bad record:
+
+https://boombox-api.library.nashville.org/public/albums/?collection=org.nashville.library.boombox
+
+https://boombox-api.library.nashville.org/public/albums/doug-moser-and-jonathan-estes-album?collection=org.nashville.library.boombox&req_content_type=marc-bin
+

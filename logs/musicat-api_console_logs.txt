@@ -1,0 +1,2299 @@
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album irenka-wait-4-it to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Irenka' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Irenka' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Irenka (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Irenka (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Wait 4 it . . .' ], [ 'c', 'Irenka' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'Wait 4 it . . .', 'c', 'Irenka' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Black Swan World,' ],
+  [ 'c', '2014' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Black Swan World,',
+  'c',
+  '2014' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (17:44)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (17:44)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: swank-winter-2017' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: swank-winter-2017' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Irenka' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Irenka' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Comme Si' ],
+  [ 'g', '(3:58) --' ],
+  [ 't', 'Dreamland' ],
+  [ 'g', '(4:02) --' ],
+  [ 't', 'Autumn' ],
+  [ 'g', '(3:01) --' ],
+  [ 't', 'I Don\'t Need No Lover' ],
+  [ 'g', '(4:19) --' ],
+  [ 't', 'A Reason To Hate Me' ],
+  [ 'g', '(2:22)' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Comme Si',
+  'g',
+  '(3:58) --',
+  't',
+  'Dreamland',
+  'g',
+  '(4:02) --',
+  't',
+  'Autumn',
+  'g',
+  '(3:01) --',
+  't',
+  'I Don\'t Need No Lover',
+  'g',
+  '(4:19) --',
+  't',
+  'A Reason To Hate Me',
+  'g',
+  '(2:22)' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English and French' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English and French' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Popular music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Popular music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/irenka-wait-4-it/wait-4-it-irenka-distrokid.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/irenka-wait-4-it/wait-4-it-irenka-distrokid.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/irenka-wait-4-it' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/irenka-wait-4-it',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album krovi-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'KROVI' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'KROVI' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'KROVI (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'KROVI (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'дроны крови (Blood Drones)' ], [ 'c', 'KROVI' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'дроны крови (Blood Drones)', 'c', 'KROVI' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Independent,' ],
+  [ 'c', '2016' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Independent,',
+  'c',
+  '2016' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (36:49)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (36:49)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by KROVI' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by KROVI' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Unknown Health' ],
+  [ 'g', '(2:54) --' ],
+  [ 't', 'Brrdie' ],
+  [ 'g', '(3:20) --' ],
+  [ 't', 'Corridors of Doubt' ],
+  [ 'g', '(3:32) --' ],
+  [ 't', 'Glass Bath _ Too Late' ],
+  [ 'g', '(5:44) --' ],
+  [ 't', 'Make You See' ],
+  [ 'g', '(4:59) --' ],
+  [ 't', 'Nrrse' ],
+  [ 'g', '(2:18) --' ],
+  [ 't', 'Toccoa pt ll' ],
+  [ 'g', '(3:12) --' ],
+  [ 't', 'Stone Unlv' ],
+  [ 'g', '(1:33)' ],
+  [ 't', 'Part Of The Night' ],
+  [ 'g', '(4:48) --' ],
+  [ 't', 'Its Never Over' ],
+  [ 'g', '(4:25) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Unknown Health',
+  'g',
+  '(2:54) --',
+  't',
+  'Brrdie',
+  'g',
+  '(3:20) --',
+  't',
+  'Corridors of Doubt',
+  'g',
+  '(3:32) --',
+  't',
+  'Glass Bath _ Too Late',
+  'g',
+  '(5:44) --',
+  't',
+  'Make You See',
+  'g',
+  '(4:59) --',
+  't',
+  'Nrrse',
+  'g',
+  '(2:18) --',
+  't',
+  'Toccoa pt ll',
+  'g',
+  '(3:12) --',
+  't',
+  'Stone Unlv',
+  'g',
+  '(1:33)',
+  't',
+  'Part Of The Night',
+  'g',
+  '(4:48) --',
+  't',
+  'Its Never Over',
+  'g',
+  '(4:25) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Popular music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Popular music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/krovi-album/qjej3149-1.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/krovi-album/qjej3149-1.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/krovi-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/krovi-album',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album cloudmouth-drunk-on-what-i-am to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Cloudmouth' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Cloudmouth' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Cloudmouth (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Cloudmouth (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Drunk On What I Am' ], [ 'c', 'Cloudmouth' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'Drunk On What I Am', 'c', 'Cloudmouth' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Yeah Definitely Records,' ],
+  [ 'c', '2016' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Yeah Definitely Records,',
+  'c',
+  '2016' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (36:49)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (36:49)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: swank-winter-2017' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: swank-winter-2017' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Cloudmouth' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Cloudmouth' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Equestrian Friends' ],
+  [ 'g', '(5:39)' ],
+  [ 't', 'Little House' ],
+  [ 'g', '(3:35) --' ],
+  [ 't', 'All The World' ],
+  [ 'g', '(6:07) --' ],
+  [ 't', 'Nothing' ],
+  [ 'g', '(5:00) --' ],
+  [ 't', 'Blues Of Wanted To' ],
+  [ 'g', '(6:17) --' ],
+  [ 't', 'Only Rocks' ],
+  [ 'g', '(3:32) --' ],
+  [ 't', 'Drunk On What' ],
+  [ 'g', '(6:37) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Equestrian Friends',
+  'g',
+  '(5:39)',
+  't',
+  'Little House',
+  'g',
+  '(3:35) --',
+  't',
+  'All The World',
+  'g',
+  '(6:07) --',
+  't',
+  'Nothing',
+  'g',
+  '(5:00) --',
+  't',
+  'Blues Of Wanted To',
+  'g',
+  '(6:17) --',
+  't',
+  'Only Rocks',
+  'g',
+  '(3:32) --',
+  't',
+  'Drunk On What',
+  'g',
+  '(6:37) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Folk music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Folk music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/cloudmouth-drunk-on-what-i-am/drunk-on-what-cover.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/cloudmouth-drunk-on-what-i-am/drunk-on-what-cover.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/cloudmouth-drunk-on-what-i-am' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/cloudmouth-drunk-on-what-i-am',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album al-d-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Al-D' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Al-D' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Al-D (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Al-D (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Free Delivery' ], [ 'c', 'Al-D' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'Free Delivery', 'c', 'Al-D' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Independent,' ],
+  [ 'c', '2013' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Independent,',
+  'c',
+  '2013' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (01:08:16)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (01:08:16)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Al-D' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Al-D' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't',
+    'Intro bass and guitar by Evan North cello by LST cuts by DJ Rate' ],
+  [ 'g', '(1:26)' ],
+  [ 't', 'Window Shopping co-prod by Coffey' ],
+  [ 'g', '(2:29) --' ],
+  [ 't', 'Just Dont Care remix of Derobert and the Half-Truths' ],
+  [ 'g', '(2:26) --' ],
+  [ 't',
+    'Boom Bap feat Amerigo Gazaway and Kurtis Stanley cuts by DJ Rate' ],
+  [ 'g', '(4:16) --' ],
+  [ 't', 'Moonlight feat. Ill Dose and ET cuts by DJ Wigs' ],
+  [ 'g', '(3:33) --' ],
+  [ 't', 'Break it Down Remix feat 187 Blitz cuts by Chozen' ],
+  [ 'g', '(2:50) --' ],
+  [ 't',
+    'No Waitin Around feat King Thai cello by LST cuts by DJ Rate' ],
+  [ 'g', '(2:40) --' ],
+  [ 't', 'Visionary cuts by Chozen' ],
+  [ 'g', '(1:36) --' ],
+  [ 't', '09 Stage Presence feat Jason da Hater' ],
+  [ 'g', '(3:01) --' ],
+  [ 't', 'Roll Around My City feat ET cello by LST' ],
+  [ 'g', '(2:38) --' ],
+  [ 't', 'Televise This feat SMO cuts by DJ Rate' ],
+  [ 'g', '(2:54) --' ],
+  [ 't', 'Got Skills feat Coffy prod by Coffey cuts by DJ Rate' ],
+  [ 'g', '(2:29) --' ],
+  [ 't',
+    'Keep MCs Lookin Out feat TN Jim and Kurtis Stanley cuts by DJ Rate prod by DJ Rate' ],
+  [ 'g', '(3:27) --' ],
+  [ 't', 'Nobody\'s Baby' ],
+  [ 'g', '(2:41) --' ],
+  [ 't', 'This is what He Said' ],
+  [ 'g', '(1:36) --' ],
+  [ 't', 'Finish Lines feat Nam White cuts by DJ Rate' ],
+  [ 'g', '(3:01) --' ],
+  [ 't', 'Antithesis feat SMO and ET prod by Wick-It' ],
+  [ 'g', '(3:44) --' ],
+  [ 't', 'Break Bread feat Virghost Memphiasco' ],
+  [ 'g', '(2:40) --' ],
+  [ 't',
+    'You Can Talk You Can Rap, You Can Walk You Can Break feat. Mr Ahmad Rashad cuts by DJ Rate' ],
+  [ 'g', '(2:25) --' ],
+  [ 't',
+    'Interlude guitar bass and harmonica by Evan North cuts by DJ Rate' ],
+  [ 'g', '(1:30) --' ],
+  [ 't', 'Spinnin\' ya Wheels feat. Case Arnold' ],
+  [ 'g', '(2:56) --' ],
+  [ 't', 'March feat ET cuts by DJ Rate' ],
+  [ 'g', '(2:56) --' ],
+  [ 't',
+    'Is it Worth it feat Top Notch Rhyme Animal and Ron Flow prod by Mook cuts by Top Notch' ],
+  [ 'g', '(3:00) --' ],
+  [ 't', 'Dont Cry feat. Sofa Brown' ],
+  [ 'g', '(2:32) --' ],
+  [ 't', 'I miss you prod. by Gummy Soul' ],
+  [ 'g', '(3:21) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Intro bass and guitar by Evan North cello by LST cuts by DJ Rate',
+  'g',
+  '(1:26)',
+  't',
+  'Window Shopping co-prod by Coffey',
+  'g',
+  '(2:29) --',
+  't',
+  'Just Dont Care remix of Derobert and the Half-Truths',
+  'g',
+  '(2:26) --',
+  't',
+  'Boom Bap feat Amerigo Gazaway and Kurtis Stanley cuts by DJ Rate',
+  'g',
+  '(4:16) --',
+  't',
+  'Moonlight feat. Ill Dose and ET cuts by DJ Wigs',
+  'g',
+  '(3:33) --',
+  't',
+  'Break it Down Remix feat 187 Blitz cuts by Chozen',
+  'g',
+  '(2:50) --',
+  't',
+  'No Waitin Around feat King Thai cello by LST cuts by DJ Rate',
+  'g',
+  '(2:40) --',
+  't',
+  'Visionary cuts by Chozen',
+  'g',
+  '(1:36) --',
+  't',
+  '09 Stage Presence feat Jason da Hater',
+  'g',
+  '(3:01) --',
+  't',
+  'Roll Around My City feat ET cello by LST',
+  'g',
+  '(2:38) --',
+  't',
+  'Televise This feat SMO cuts by DJ Rate',
+  'g',
+  '(2:54) --',
+  't',
+  'Got Skills feat Coffy prod by Coffey cuts by DJ Rate',
+  'g',
+  '(2:29) --',
+  't',
+  'Keep MCs Lookin Out feat TN Jim and Kurtis Stanley cuts by DJ Rate prod by DJ Rate',
+  'g',
+  '(3:27) --',
+  't',
+  'Nobody\'s Baby',
+  'g',
+  '(2:41) --',
+  't',
+  'This is what He Said',
+  'g',
+  '(1:36) --',
+  't',
+  'Finish Lines feat Nam White cuts by DJ Rate',
+  'g',
+  '(3:01) --',
+  't',
+  'Antithesis feat SMO and ET prod by Wick-It',
+  'g',
+  '(3:44) --',
+  't',
+  'Break Bread feat Virghost Memphiasco',
+  'g',
+  '(2:40) --',
+  't',
+  'You Can Talk You Can Rap, You Can Walk You Can Break feat. Mr Ahmad Rashad cuts by DJ Rate',
+  'g',
+  '(2:25) --',
+  't',
+  'Interlude guitar bass and harmonica by Evan North cuts by DJ Rate',
+  'g',
+  '(1:30) --',
+  't',
+  'Spinnin\' ya Wheels feat. Case Arnold',
+  'g',
+  '(2:56) --',
+  't',
+  'March feat ET cuts by DJ Rate',
+  'g',
+  '(2:56) --',
+  't',
+  'Is it Worth it feat Top Notch Rhyme Animal and Ron Flow prod by Mook cuts by Top Notch',
+  'g',
+  '(3:00) --',
+  't',
+  'Dont Cry feat. Sofa Brown',
+  'g',
+  '(2:32) --',
+  't',
+  'I miss you prod. by Gummy Soul',
+  'g',
+  '(3:21) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Rap (Music)' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Rap (Music)' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/al-d-album/free-delivery-album-cover.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/al-d-album/free-delivery-album-cover.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/al-d-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/al-d-album',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album eight-o-five-jive-swing-set to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'O\'Five Jive, Eight' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'O\'Five Jive, Eight' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Eight O\'Five Jive (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Eight O\'Five Jive (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Swing Set' ], [ 'c', 'Eight O\'Five Jive' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'Swing Set', 'c', 'Eight O\'Five Jive' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Independent,' ],
+  [ 'c', '2017' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Independent,',
+  'c',
+  '2017' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (36:32)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (36:32)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: swank-winter-2017' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: swank-winter-2017' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Eight O\'Five Jive' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Eight O\'Five Jive' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Make Mine A Double' ],
+  [ 'g', '(3:10) --' ],
+  [ 't', 'Ragged' ],
+  [ 'g', '(3:37) --' ],
+  [ 't', 'Get Away' ],
+  [ 'g', '(2:53) --' ],
+  [ 't', 'Put It Back' ],
+  [ 'g', '(2:47) --' ],
+  [ 't', 'Never' ],
+  [ 'g', '(3:21) --' ],
+  [ 't', 'I Won\'t Wear Flats (To Your Funeral)' ],
+  [ 'g', '(2:48) --' ],
+  [ 't', 'One More Glass Of Wine' ],
+  [ 'g', '(3:41) --' ],
+  [ 't', 'My Mumblin Baby' ],
+  [ 'g', '(2:36) --' ],
+  [ 't', 'Watch Out For Their Wives' ],
+  [ 'g', '(3:50) --' ],
+  [ 't', 'Back of My Hand' ],
+  [ 'g', '(3:58) --' ],
+  [ 't', 'A Little Bit Of Bourbon' ],
+  [ 'g', '(3:45)' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Make Mine A Double',
+  'g',
+  '(3:10) --',
+  't',
+  'Ragged',
+  'g',
+  '(3:37) --',
+  't',
+  'Get Away',
+  'g',
+  '(2:53) --',
+  't',
+  'Put It Back',
+  'g',
+  '(2:47) --',
+  't',
+  'Never',
+  'g',
+  '(3:21) --',
+  't',
+  'I Won\'t Wear Flats (To Your Funeral)',
+  'g',
+  '(2:48) --',
+  't',
+  'One More Glass Of Wine',
+  'g',
+  '(3:41) --',
+  't',
+  'My Mumblin Baby',
+  'g',
+  '(2:36) --',
+  't',
+  'Watch Out For Their Wives',
+  'g',
+  '(3:50) --',
+  't',
+  'Back of My Hand',
+  'g',
+  '(3:58) --',
+  't',
+  'A Little Bit Of Bourbon',
+  'g',
+  '(3:45)' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Blues music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Blues music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/eight-o-five-jive-swing-set/01-front-4th-draft-02.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/eight-o-five-jive-swing-set/01-front-4th-draft-02.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/eight-o-five-jive-swing-set' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/eight-o-five-jive-swing-set',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album harrison-b-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'B., Harrison' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'B., Harrison' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Harrison B. (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Harrison B. (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'ARENA' ], [ 'c', 'Harrison B.' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'ARENA', 'c', 'Harrison B.' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Independent,' ],
+  [ 'c', '2015' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Independent,',
+  'c',
+  '2015' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (38:38)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (38:38)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Harrison B.' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Harrison B.' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'With a Smile On' ],
+  [ 'g', '(3:45) --' ],
+  [ 't', ' I\'m Only' ],
+  [ 'g', '(2:58)' ],
+  [ 't', 'Bleeding Hearts & Broken Hands' ],
+  [ 'g', '(4:20) --' ],
+  [ 't', 'Father Help Me' ],
+  [ 'g', '(3:47) --' ],
+  [ 't', 'Deep Deep' ],
+  [ 'g', '(3:40) --' ],
+  [ 't', 'Keep It Movin' ],
+  [ 'g', '(3:08) --' ],
+  [ 't', 'FEEL' ],
+  [ 'g', '(4:47) --' ],
+  [ 't', 'My Demon' ],
+  [ 'g', '(3:16) --' ],
+  [ 't', 'Kookaburra' ],
+  [ 'g', '(3:18) --' ],
+  [ 't', 'In The Name Of' ],
+  [ 'g', '(5:37) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'With a Smile On',
+  'g',
+  '(3:45) --',
+  't',
+  ' I\'m Only',
+  'g',
+  '(2:58)',
+  't',
+  'Bleeding Hearts & Broken Hands',
+  'g',
+  '(4:20) --',
+  't',
+  'Father Help Me',
+  'g',
+  '(3:47) --',
+  't',
+  'Deep Deep',
+  'g',
+  '(3:40) --',
+  't',
+  'Keep It Movin',
+  'g',
+  '(3:08) --',
+  't',
+  'FEEL',
+  'g',
+  '(4:47) --',
+  't',
+  'My Demon',
+  'g',
+  '(3:16) --',
+  't',
+  'Kookaburra',
+  'g',
+  '(3:18) --',
+  't',
+  'In The Name Of',
+  'g',
+  '(5:37) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Rock music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Rock music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/harrison-b-album/bblibrary.JPG' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/harrison-b-album/bblibrary.JPG' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/harrison-b-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/harrison-b-album',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album mystery-twins-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Twins, Mystery' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Twins, Mystery' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Mystery Twins (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Mystery Twins (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Ghost In The Ground' ], [ 'c', 'Mystery Twins' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'Ghost In The Ground', 'c', 'Mystery Twins' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Independent,' ],
+  [ 'c', '2013' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Independent,',
+  'c',
+  '2013' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (39:39)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (39:39)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Mystery Twins' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Mystery Twins' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'The Best Of You' ],
+  [ 'g', '(37)' ],
+  [ 't', 'Other Side Of Life' ],
+  [ 'g', '(2:06) --' ],
+  [ 't', 'All Alone' ],
+  [ 'g', '(3:22) --' ],
+  [ 't', 'The World Within' ],
+  [ 'g', '(2:27) --' ],
+  [ 't', 'The River' ],
+  [ 'g', '(4:25) --' ],
+  [ 't', 'Ghost' ],
+  [ 'g', '(4:02) --' ],
+  [ 't', 'Someone Else' ],
+  [ 'g', '(2:23) --' ],
+  [ 't', 'In The Ground' ],
+  [ 'g', '(2:23) --' ],
+  [ 't', 'Bones' ],
+  [ 'g', '(3:41) --' ],
+  [ 't', 'Your Heart Won\'t Let You Down' ],
+  [ 'g', '(4:18) --' ],
+  [ 't', 'Do You Wanna Dance With Me' ],
+  [ 'g', '(1:01) --' ],
+  [ 't', 'Mary' ],
+  [ 'g', '(3:23) --' ],
+  [ 't', 'Sad Song' ],
+  [ 'g', '(2:55) --' ],
+  [ 't', 'Long Days' ],
+  [ 'g', '(2:30) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'The Best Of You',
+  'g',
+  '(37)',
+  't',
+  'Other Side Of Life',
+  'g',
+  '(2:06) --',
+  't',
+  'All Alone',
+  'g',
+  '(3:22) --',
+  't',
+  'The World Within',
+  'g',
+  '(2:27) --',
+  't',
+  'The River',
+  'g',
+  '(4:25) --',
+  't',
+  'Ghost',
+  'g',
+  '(4:02) --',
+  't',
+  'Someone Else',
+  'g',
+  '(2:23) --',
+  't',
+  'In The Ground',
+  'g',
+  '(2:23) --',
+  't',
+  'Bones',
+  'g',
+  '(3:41) --',
+  't',
+  'Your Heart Won\'t Let You Down',
+  'g',
+  '(4:18) --',
+  't',
+  'Do You Wanna Dance With Me',
+  'g',
+  '(1:01) --',
+  't',
+  'Mary',
+  'g',
+  '(3:23) --',
+  't',
+  'Sad Song',
+  'g',
+  '(2:55) --',
+  't',
+  'Long Days',
+  'g',
+  '(2:30) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Rock music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Rock music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/mystery-twins-album/mystery-twins-gitg-cover-big.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/mystery-twins-album/mystery-twins-gitg-cover-big.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/mystery-twins-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/mystery-twins-album',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album jonathan-wires-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Wires, Jonathan' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Wires, Jonathan' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Jonathan Wires (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Jonathan Wires (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Weaving' ], [ 'c', 'Jonathan Wires' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'Weaving', 'c', 'Jonathan Wires' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'http://earuprecords.com/,' ],
+  [ 'c', '2016' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'http://earuprecords.com/,',
+  'c',
+  '2016' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (01:04:13)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (01:04:13)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Jonathan Wires' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Jonathan Wires' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Weaving ' ],
+  [ 'g', '(6:41) --' ],
+  [ 't', 'Second Thoughts ' ],
+  [ 'g', '(5:34) --' ],
+  [ 't', ' Before The Wind ' ],
+  [ 'g', '(9:10) --' ],
+  [ 't', 'it Seems To Be ' ],
+  [ 'g', '(10:12) --' ],
+  [ 't', 'In My Slumber ' ],
+  [ 'g', '(8:42) --' ],
+  [ 't', 'In Flux ' ],
+  [ 'g', '(9:06)' ],
+  [ 't', 'Holiday Offering ' ],
+  [ 'g', '(8:08) --' ],
+  [ 't', 'Waver ' ],
+  [ 'g', '(6:37) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Weaving ',
+  'g',
+  '(6:41) --',
+  't',
+  'Second Thoughts ',
+  'g',
+  '(5:34) --',
+  't',
+  ' Before The Wind ',
+  'g',
+  '(9:10) --',
+  't',
+  'it Seems To Be ',
+  'g',
+  '(10:12) --',
+  't',
+  'In My Slumber ',
+  'g',
+  '(8:42) --',
+  't',
+  'In Flux ',
+  'g',
+  '(9:06)',
+  't',
+  'Holiday Offering ',
+  'g',
+  '(8:08) --',
+  't',
+  'Waver ',
+  'g',
+  '(6:37) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Jazz music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Jazz music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/jonathan-wires-album/cover-final.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/jonathan-wires-album/cover-final.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/jonathan-wires-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/jonathan-wires-album',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album harmeleighs-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Harmeleighs' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Harmeleighs' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Harmeleighs (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Harmeleighs (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Pretty Picture, Dirty Brush' ],
+  [ 'c', 'Harmeleighs' ] ]
+outgoing:
+[ '245',
+  '1',
+  '0',
+  'a',
+  'Pretty Picture, Dirty Brush',
+  'c',
+  'Harmeleighs' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Independent,' ],
+  [ 'c', '2015' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Independent,',
+  'c',
+  '2015' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (29:42)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (29:42)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Harmeleighs' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Harmeleighs' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Hesitate' ],
+  [ 'g', '(2:41)' ],
+  [ 't', 'I Keep Ticking On' ],
+  [ 'g', '(2:36) --' ],
+  [ 't', 'Collecting My Change' ],
+  [ 'g', '(2:08) --' ],
+  [ 't', 'Doll Made of Glass' ],
+  [ 'g', '(2:53) --' ],
+  [ 't', 'I Found Myself In You' ],
+  [ 'g', '(2:50) --' ],
+  [ 't', 'Last One Standing' ],
+  [ 'g', '(3:09) --' ],
+  [ 't', 'Pretty Livin' ],
+  [ 'g', '(3:02) --' ],
+  [ 't', 'Sticks And Stones' ],
+  [ 'g', '(2:54) --' ],
+  [ 't', 'Colorblind' ],
+  [ 'g', '(2:54) --' ],
+  [ 't', 'Talking In My Sleep Peoples Talk' ],
+  [ 'g', '(4:29) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Hesitate',
+  'g',
+  '(2:41)',
+  't',
+  'I Keep Ticking On',
+  'g',
+  '(2:36) --',
+  't',
+  'Collecting My Change',
+  'g',
+  '(2:08) --',
+  't',
+  'Doll Made of Glass',
+  'g',
+  '(2:53) --',
+  't',
+  'I Found Myself In You',
+  'g',
+  '(2:50) --',
+  't',
+  'Last One Standing',
+  'g',
+  '(3:09) --',
+  't',
+  'Pretty Livin',
+  'g',
+  '(3:02) --',
+  't',
+  'Sticks And Stones',
+  'g',
+  '(2:54) --',
+  't',
+  'Colorblind',
+  'g',
+  '(2:54) --',
+  't',
+  'Talking In My Sleep Peoples Talk',
+  'g',
+  '(4:29) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Folk music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Folk music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/harmeleighs-album/album-cover-ppdb.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/harmeleighs-album/album-cover-ppdb.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/harmeleighs-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/harmeleighs-album',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album diarrhea-planet-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Planet, Diarrhea' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Planet, Diarrhea' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Diarrhea Planet (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'Diarrhea Planet (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Turn To Gold' ], [ 'c', 'Diarrhea Planet' ] ]
+outgoing:
+[ '245', '1', '0', 'a', 'Turn To Gold', 'c', 'Diarrhea Planet' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Infinity Cat,' ],
+  [ 'c', '2016' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Infinity Cat,',
+  'c',
+  '2016' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (42:00)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (42:00)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by Diarrhea Planet' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by Diarrhea Planet' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Hard Style   ' ],
+  [ 'g', '(3:37)' ],
+  [ 't', 'Announcement' ],
+  [ 'g', '(4:25) --' ],
+  [ 't', 'Life Pass' ],
+  [ 'g', '(3:15) --' ],
+  [ 't', 'Let It Out' ],
+  [ 'g', '(2:30) --' ],
+  [ 't', 'Bob Dylan\'s Grandma' ],
+  [ 'g', '(3:19) --' ],
+  [ 't', 'Ruby Red' ],
+  [ 'g', '(4:13) --' ],
+  [ 't', 'Ain\'t A Sin To Win' ],
+  [ 'g', '(2:04) --' ],
+  [ 't', 'Dune' ],
+  [ 'g', '(3:41) --' ],
+  [ 't', 'Hot Topic' ],
+  [ 'g', '(3:04) --' ],
+  [ 't', 'Lie Down' ],
+  [ 'g', '(3:54) --' ],
+  [ 't', 'Headband' ],
+  [ 'g', '(7:53) --' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Hard Style   ',
+  'g',
+  '(3:37)',
+  't',
+  'Announcement',
+  'g',
+  '(4:25) --',
+  't',
+  'Life Pass',
+  'g',
+  '(3:15) --',
+  't',
+  'Let It Out',
+  'g',
+  '(2:30) --',
+  't',
+  'Bob Dylan\'s Grandma',
+  'g',
+  '(3:19) --',
+  't',
+  'Ruby Red',
+  'g',
+  '(4:13) --',
+  't',
+  'Ain\'t A Sin To Win',
+  'g',
+  '(2:04) --',
+  't',
+  'Dune',
+  'g',
+  '(3:41) --',
+  't',
+  'Hot Topic',
+  'g',
+  '(3:04) --',
+  't',
+  'Lie Down',
+  'g',
+  '(3:54) --',
+  't',
+  'Headband',
+  'g',
+  '(7:53) --' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Rock music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Rock music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/diarrhea-planet-album/diarrhea-planet-turn-to-gold-cover.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/diarrhea-planet-album/diarrhea-planet-turn-to-gold-cover.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/diarrhea-planet-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/diarrhea-planet-album',
+  'z',
+  'Click here to access this electronic item' ]
+req_content_type: marc
+using legacy MARC text rendering
+transforming JSON album david-gleason-album to MARC 21.
+ specifically: marc
+IN TRANSLATE for 003:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'BoomBox MUSICat' ] ]
+outgoing:
+[ '003', ' ', ' ', 'a', 'BoomBox MUSICat' ]
+IN TRANSLATE for 100:
+incoming:
+[ '1', ' ' ]
+[ [ 'a', 'Gleason, David' ] ]
+outgoing:
+[ '100', '1', ' ', 'a', 'Gleason, David' ]
+IN TRANSLATE for 110:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'David Gleason (Musical group)' ] ]
+outgoing:
+[ '110', '2', ' ', 'a', 'David Gleason (Musical group)' ]
+IN TRANSLATE for 245:
+incoming:
+[ '1', '0' ]
+[ [ 'a', 'Best of Dave Gleason' ], [ 'c', 'David Gleason' ] ]
+outgoing:
+[ '245',
+  '1',
+  '0',
+  'a',
+  'Best of Dave Gleason',
+  'c',
+  'David Gleason' ]
+IN TRANSLATE for 260:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', '[Place of publication not indicated] :' ],
+  [ 'b', 'Independent,' ],
+  [ 'c', '2012' ] ]
+outgoing:
+[ '260',
+  ' ',
+  ' ',
+  'a',
+  '[Place of publication not indicated] :',
+  'b',
+  'Independent,',
+  'c',
+  '2012' ]
+IN TRANSLATE for 300:
+incoming:
+[ ' ', ' ' ]
+[ [ '', '1 online resource (1 audio file (51:21)) ;' ],
+  [ 'b', 'digital' ] ]
+outgoing:
+[ '300',
+  ' ',
+  ' ',
+  '',
+  '1 online resource (1 audio file (51:21)) ;',
+  'b',
+  'digital' ]
+IN TRANSLATE for 500:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'MUSICat Submission Round: boombox-fall-2016' ] ]
+outgoing:
+[ '500',
+  ' ',
+  ' ',
+  'a',
+  'MUSICat Submission Round: boombox-fall-2016' ]
+IN TRANSLATE for 506:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Streaming available to Library patrons.' ],
+  [ 'm', 'BoomBox content provided by MUSICat' ] ]
+outgoing:
+[ '506',
+  ' ',
+  ' ',
+  'a',
+  'Streaming available to Library patrons.',
+  'm',
+  'BoomBox content provided by MUSICat' ]
+IN TRANSLATE for 511:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Performed by David Gleason' ] ]
+outgoing:
+[ '511', ' ', ' ', 'a', 'Performed by David Gleason' ]
+IN TRANSLATE for 505:
+incoming:
+[ '0', '0' ]
+[ [ 't', 'Look At The Way You\'ve Become' ],
+  [ 'g', '(2:38) --' ],
+  [ 't', 'Radio 1965' ],
+  [ 'g', '(2:57) --' ],
+  [ 't', 'South Virginia Breakdown (Inst)' ],
+  [ 'g', '(2:54) --' ],
+  [ 't', 'Downside of Life' ],
+  [ 'g', '(6:02) --' ],
+  [ 't', 'The Hardest Part' ],
+  [ 'g', '(5:12) --' ],
+  [ 't', 'The San Joaquin (Inst)' ],
+  [ 'g', '(3:01) --' ],
+  [ 't', 'Blue Side Of The World' ],
+  [ 'g', '(2:31) --' ],
+  [ 't', 'Turn And Fade' ],
+  [ 'g', '(3:52) --' ],
+  [ 't', 'Backside of Love' ],
+  [ 'g', '(3:52) --' ],
+  [ 't', 'Right Back To Her Heart' ],
+  [ 'g', '(3:21) --' ],
+  [ 't', 'Train Of Blue' ],
+  [ 'g', '(3:21) --' ],
+  [ 't', 'If You\'re Going Through Hell' ],
+  [ 'g', '(3:53) --' ],
+  [ 't', 'All Morning Long (Inst)' ],
+  [ 'g', '(2:50) --' ],
+  [ 't', 'Wait For The Rain' ],
+  [ 'g', '(4:52)' ] ]
+outgoing:
+[ '505',
+  '0',
+  '0',
+  't',
+  'Look At The Way You\'ve Become',
+  'g',
+  '(2:38) --',
+  't',
+  'Radio 1965',
+  'g',
+  '(2:57) --',
+  't',
+  'South Virginia Breakdown (Inst)',
+  'g',
+  '(2:54) --',
+  't',
+  'Downside of Life',
+  'g',
+  '(6:02) --',
+  't',
+  'The Hardest Part',
+  'g',
+  '(5:12) --',
+  't',
+  'The San Joaquin (Inst)',
+  'g',
+  '(3:01) --',
+  't',
+  'Blue Side Of The World',
+  'g',
+  '(2:31) --',
+  't',
+  'Turn And Fade',
+  'g',
+  '(3:52) --',
+  't',
+  'Backside of Love',
+  'g',
+  '(3:52) --',
+  't',
+  'Right Back To Her Heart',
+  'g',
+  '(3:21) --',
+  't',
+  'Train Of Blue',
+  'g',
+  '(3:21) --',
+  't',
+  'If You\'re Going Through Hell',
+  'g',
+  '(3:53) --',
+  't',
+  'All Morning Long (Inst)',
+  'g',
+  '(2:50) --',
+  't',
+  'Wait For The Rain',
+  'g',
+  '(4:52)' ]
+IN TRANSLATE for 546:
+incoming:
+[ ' ', ' ' ]
+[ [ 'a', 'Sung in English' ] ]
+outgoing:
+[ '546', ' ', ' ', 'a', 'Sung in English' ]
+IN TRANSLATE for 650:
+incoming:
+[ ' ', '0' ]
+[ [ 'a', 'Country music' ], [ 'y', '2011-2020' ] ]
+outgoing:
+[ '650', ' ', '0', 'a', 'Country music', 'y', '2011-2020' ]
+IN TRANSLATE for 710:
+incoming:
+[ '2', ' ' ]
+[ [ 'a', 'Rabble, LLC' ], [ 'u', 'MUSICat' ] ]
+outgoing:
+[ '710', '2', ' ', 'a', 'Rabble, LLC', 'u', 'MUSICat' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '2' ]
+[ [ 'z', 'Cover image' ],
+  [ 'u',
+    'https://boombox-jsfs.library.nashville.org/complete-submission/albums/david-gleason-album/_mg_0098.jpg' ] ]
+outgoing:
+[ '856',
+  '4',
+  '2',
+  'z',
+  'Cover image',
+  'u',
+  'https://boombox-jsfs.library.nashville.org/complete-submission/albums/david-gleason-album/_mg_0098.jpg' ]
+IN TRANSLATE for 856:
+incoming:
+[ '4', '0' ]
+[ [ 'u',
+    'https://boombox.library.nashville.org/albums/david-gleason-album' ],
+  [ 'z', 'Click here to access this electronic item' ] ]
+outgoing:
+[ '856',
+  '4',
+  '0',
+  'u',
+  'https://boombox.library.nashville.org/albums/david-gleason-album',
+  'z',
+  'Click here to access this electronic item' ]

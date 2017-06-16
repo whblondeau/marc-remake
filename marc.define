@@ -1,0 +1,55 @@
+
+JSON expression
+
+'001', ' ', ' ',    {album_json.id
+'003',    collection_label + ' MUSICat'
+
+
+'100', '1', ' ',    {'a': album_json['main_artist_name']} (biblio listing format) (if single person)
+
+'110', '2', ' ',    {'a': album_json['main_artist_name'] + '' (Musical group)'} (if group)
+
+'245', '1', '0',    {'a': album_json['title']}
+                    {'c': album_json['main_artist_name']}
+
+'260', ' ', ' ',    {'a': '[Place of publication not indicated] :'}
+                    {'b': album_json['record_label']}
+                    {'c': album_json['release_date']} (expr: .split("-")[0])
+
+'300', ' ', ' ',    {' ': '1 online resource (1 audio file (' + duration_as_h_m_s(total_play_length, true) + ')) ;'}
+                    {'b': 'digital'}
+
+'500', ' ', ' ',    {'a': 'MUSICat Submission Round: '' + album_json['round']} (iff round)
+
+'506', ' ', ' ',    {'a': 'Streaming available to Library patrons.''}
+                    {'m': collection_label + ' content provided by MUSICat'}
+
+'511', ' ', ' ',    {'a', 'Performed by '' + album_json['main_artist_name']}''
+
+'505', '0', '0',    for each track in album_json.tracks:
+                        {'t': track['title']}
+                        {'g': track['duration']}
+                    sort by track['position']
+
+'546', ' ', ' ',    {'a': 'Sung in ' + album_json["spoken_languages"] (formatted pretty_comma)
+
+'650', ' ', '0',    {'a': album_json['genre']}
+                    {'y': computed_decade_literal}
+
+'710', '2', ' ',    {"a": "Rabble, LLC"}
+                    {"u": "MUSICat"}
+
+# subfield 42 (see the abuse of ind_1 and ind_2?????)
+'856', '4', '2',    {"z": "Cover image"}
+                    {"u": album_json["front_cover_art"]}
+
+# subfield 40
+'856', '4', '0',    {"u": hostname + '/albums/' + album_json["id"]}
+                    {"z": "Click here to access this electronic item"}
+
+
+
+
+
+
+

@@ -1,0 +1,4 @@
+
+A JSON data item stating whether 'main_artist_name' means individual or group.
+
+The proper site hostname ('playback.spl.org', 'capitalcityrecords.ca') for the collection. Need it in musicat-api/config.js I think?

@@ -1,7 +1,7 @@
 
 MARC abstract data description
 
-CONTROL (FIXED WIDTH) FIELDS
+CONTROL FIELDS
 (001-009)
 
 001 - Control Number 

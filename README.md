@@ -16,7 +16,7 @@ So, here's what this is: a complete component that isolates MARC-v-JSON data and
 
 The MARC formats will be: 
  - ISO-2709 binary (original MARC byte-oriented format)
- - MARC text as developed by Rabble, CCR, and SPL for editor-based 
+ - MARC text as developed by Rabble, CCR, and SPL for editor-based ingestion.
  
 "JSON" format does _not_ refer to the "MARCjson" proposed form. It means 
 

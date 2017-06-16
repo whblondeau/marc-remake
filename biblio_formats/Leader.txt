@@ -1,0 +1,349 @@
+
+Leader (NR)
+MARC 21 Bibliographic - concise
+November 2016
+
+Fixed field that comprises the first 24 character positions (00-23) of each bibliographic record and consists of data elements that contain numbers or coded values that define the parameters for the processing of the record.
+
+Character positions 20-23 comprise the Entry map for the Directory. They contain four one-character numbers that specify the structure of the entries in the Directory. More detailed information about the structure of the Leader is contained in MARC 21 Specifications for Record Structure, Character Sets, and Exchange Media.
+Character Positions
+00-04 - Record length
+
+Computer-generated, five-character number equal to the length of the entire record, including itself and the record terminator. The number is right justified and unused positions contain zeros.
+05 - Record status
+
+One-character alphabetic code that indicates the relationship of the record to a file for file maintenance purposes.
+a - Increase in encoding level
+
+Encoding level (Leader/17) of the record has been changed to a higher encoding level.
+c - Corrected or revised
+
+Addition/change other than in the Encoding level code has been made to the record.
+d - Deleted
+n - New
+p - Increase in encoding level from prepublication
+
+Prepublication record has had a change in cataloging level resulting from the availability of the published item.
+06 - Type of record
+
+One-character alphabetic code used to define the characteristics and components of the record.
+a - Language material
+
+Includes microforms and electronic resources that are basically textual in nature, whether they are reproductions from print or originally produced.
+c - Notated music
+
+Used for printed, microform, or electronic notated music.
+d - Manuscript notated music
+
+Used for manuscript notated music or a microform of manuscript music.
+e - Cartographic material
+
+Includes maps, atlases, globes, digital maps, and other cartographic items.
+f - Manuscript cartographic material
+
+Used for manuscript cartographic material or a microform of manuscript cartographic material.
+g - Projected medium
+
+Used for motion pictures, videorecordings (including digital video), filmstrips, slide, transparencies or material specifically designed for projection.
+i - Nonmusical sound recording
+
+Used for a recording of nonmusical sounds (e.g., speech).
+j - Musical sound recording
+
+Used for a musical sound recording (e.g., phonodiscs, compact discs, or cassette tapes.
+k - Two-dimensional nonprojectable graphic
+
+Used for two-dimensional nonprojectable graphics such as, activity cards, charts, collages, computer graphics, digital pictures, drawings, duplication masters, flash cards, paintings, photo CDs, photomechanical reproductions, photonegatives, photoprints, pictures, postcards, posters, prints, spirit masters, study prints, technical drawings, transparency masters, and reproductions of any of these.
+m - Computer file
+
+Used for the following classes of electronic resources: computer software (including programs, games, fonts), numeric data, computer-oriented multimedia, online systems or services. For these classes of materials, if there is a significant aspect that causes it to fall into another Leader/06 category, the code for that significant aspect is used instead of code m (e.g., vector data that is cartographic is not coded as numeric but as cartographic). Other classes of electronic resources are coded for their most significant aspect (e.g. language material, graphic, cartographic material, sound, music, moving image). In case of doubt or if the most significant aspect cannot be determined, consider the item a computer file.
+o - Kit
+
+Used for a mixture of various components issued as a unit and intended primarily for instructional purposes where no one item is the predominant component of the kit.
+p - Mixed materials
+
+Used when there are significant materials in two or more forms that are usually related by virtue of their having been accumulated by or about a person or body. Includes archival fonds and manuscript collections of mixed forms of materials, such as text, photographs, and sound recordings.
+r - Three-dimensional artifact or naturally occurring object
+
+Includes man-made objects such as models, dioramas, games, puzzles, simulations, sculptures and other three-dimensional art works, exhibits, machines, clothing, toys, and stitchery. Also includes naturally occurring objects such as, microscope specimens (or representations of them) and other specimens mounted for viewing.
+t - Manuscript language material
+07 - Bibliographic level
+
+One-character alphabetic code indicating the bibliographic level of the record.
+a - Monographic component part
+
+Monographic bibliographic unit that is physically attached to or contained in another unit such that the retrieval of the component part is dependent on the identification and location of the host item or container. Contains fields that describe the component part and data that identify the host, field 773 (Host Item Entry).
+b - Serial component part
+
+Serial bibliographic unit that is physically attached to or contained in another unit such that the retrieval of the component part is dependent on the identification and location of the host item or container. Contains fields that describe the component part and data that identify the host, field 773 (Host Item Entry).
+c - Collection
+
+Made-up multipart group of items that were not originally published, distributed, or produced together. The record describes units defined by common provenance or administrative convenience for which the record is intended as the most comprehensive in the system.
+d - Subunit
+
+Part of collection, especially an archival unit described collectively elsewhere in the system. Contains fields that describe the subunit and data that identify the host item.
+i - Integrating resource
+
+Bibliographic resource that is added to or changed by means of updates that do not remain discrete and are integrated into the whole. Examples include updating loose-leafs and updating Web sites.
+m - Monograph/Item
+
+Item either complete in one part (e.g., a single monograph, a single map, a single manuscript, etc.) or intended to be completed, in a finite number of separate parts (e.g., a multivolume monograph, a sound recording with multiple tracks, etc.).
+s - Serial
+
+Bibliographic item issued in successive parts bearing numerical or chronological designations and intended to be continued indefinitely. Includes periodicals; newspapers; annuals (reports, yearbooks, etc.); the journals, memoirs, proceedings, transactions, etc., of societies; and numbered monographic series, etc.
+08 - Type of control
+a - Archival
+09 - Character coding scheme
+
+Identifies the character coding scheme used in the record.
+# - MARC-8
+a - UCS/Unicode
+10 - Indicator count
+
+Computer-generated number 2 that indicates the number of character positions used for indicators in a variable data field.
+11 - Subfield code count
+
+Computer-generated number 2 that indicates the number of character positions used for each subfield code in a variable data field.
+12-16 - Base address of data
+
+Computer-generated, five-character numeric string that indicates the first character position of the first variable control field in a record. The number is right justified and each unused position contains a zero.
+17 - Encoding level
+
+One-character alphanumeric code that indicates the fullness of the bibliographic information and/or content designation of the MARC record.
+# - Full level
+
+Most complete MARC record created from information derived from an inspection of the physical item.
+1 - Full level, material not examined
+
+Next most complete MARC record after the full level created from information derived from an extant description of the item (e.g., a printed catalog card or a description in an institutional guide) without reinspection of the physical item. Used primarily in the retrospective conversion of records when all of the information on the extant description is transcribed. Certain control field coding and other data (e.g., field 043 (Geographic Area Code)) are based only on explicit information in the description.
+2 - Less-than-full level, material not examined
+
+Less-than-full level record (i.e., a record that falls between minimal level and full) created from an extant description of the material (e.g., a printed catalog card) without reinspection of the physical item. Used primarily in the retrospective conversion of records when all of the descriptive access points but only a specified subset of other data elements are transcribed. Authoritative headings may not be current.
+3 - Abbreviated level
+
+Brief record that does not meet minimal level cataloging specifications. Headings in the records may reflect established forms to the extent that such forms were available at the time the record was created.
+4 - Core level
+5 - Partial (preliminary) level
+
+Preliminary cataloging level record that is not considered final by the creating agency (e.g., the headings may not reflect established forms; the record may not meet national-level cataloging specifications).
+7 - Minimal level
+
+Record that meets the U.S. National Level Bibliographic Record minimal level cataloging specifications and is considered final by the creating agency. Headings have been checked against an authority file and reflect established forms to the extent that such forms were available at the time the minimal level record was created. The U.S. requirements for minimal-level records can be found in National Level and Minimal Level Record Requirements
+8 - Prepublication level
+
+Prepublication level record. Includes records created in cataloging in publication programs.
+u - Unknown
+
+Used by an agency receiving or sending data with a local code in Leader/17 cannot adequately determine the appropriate encoding level of the record. Code u thus replaces the local code. Not used in newly input or updated records.
+z - Not applicable
+
+Concept of encoding level does not apply to the record.
+18 - Descriptive cataloging form
+
+One-character alphanumeric code that indicates characteristics of the descriptive data in the record through reference to cataloging norms. Subfield $e (Description conventions) of field 040 (Cataloging Source) also contains information on the cataloging conventions used.
+# - Non-ISBD
+
+Descriptive portion of the record does not follow International Standard Bibliographic Description (ISBD) cataloging and punctuation provisions.
+a - AACR 2
+
+Descriptive portion of the record is formulated according to the description and punctuation provisions as incorporated into the Anglo-American Cataloging Rules, 2nd Edition (AACR 2) and its manuals.
+c - ISBD punctuation omitted
+
+Descriptive portion of the record contains the punctuation provisions of ISBD, except ISBD punctuation is not present at the end of a subfield.
+i - ISBD punctuation included
+
+Descriptive portion of the record contains the punctuation provisions of ISBD.
+n - Non-ISBD punctuation omitted
+
+Descriptive portion of the record does not follow International Standard Bibliographic Description (ISBD) cataloging and punctuation provisions, and punctuation is not present at the end of a subfield.
+u - Unknown
+
+Institution receiving or sending data in Leader/18 cannot adequately determine the appropriate descriptive cataloging form used in the record. May be used in records converted from another metadata format.
+19 - Multipart resource record level
+
+Record level to which a resource pertains and any record dependencies. This information will facilitate processing the record in different situations. For example, the record may describe a set of items, or it may describe a part of a set. The part may only have a dependent title to be used for identification purposes thus requiring use of additional information to understand its context.
+# - Not specified or not applicable
+
+The distinction between record levels is not specified or not applicable for the type of resource.
+a - Set
+
+Record is for a set consisting of multiple items.
+b - Part with independent title
+
+The record is for a resource which is part of a set and has a title that allows it to be independent of the set record.
+c - Part with dependent title
+
+The record is for a resource which is part of a set but has a title that makes it dependent on the set record to understand its context.
+20 - Length of the length-of-field portion
+
+Always contains a 4.
+21 - Length of the starting-character-position portion
+
+Always contains a 5.
+22 - Length of the implementation-defined portion
+
+Always contains a 0.
+23 - Undefined
+
+Always contains a 0.
+
+
+
+
+
+
+
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+
+
+
+
+
+Leader (NR)
+MARC 21 Bibliographic - full
+November 2016
+Indicators and Subfield Codes
+
+Has no indicators or subfield codes; the data elements are positionally defined.
+Character Positions     
+00-04 - Record length
+05 - Record status
+
+    a - Increase in encoding level
+    c - Corrected or revised
+    d - Deleted
+
+    
+
+    n - New
+    p - Increase in encoding level from prepublication
+
+06 - Type of record
+
+    a - Language material
+    c - Notated music
+    d - Manuscript notated music
+    e - Cartographic material
+    f - Manuscript cartographic material
+    g - Projected medium
+    i - Nonmusical sound recording
+
+    
+
+    j - Musical sound recording
+    k - Two-dimensional nonprojectable graphic
+    m - Computer file
+    o - Kit
+    p - Mixed materials
+    r - Three-dimensional artifact or naturally occurring object
+    t - Manuscript language material
+
+07 - Bibliographic level
+
+    a - Monographic component part
+    b - Serial component part
+    c - Collection
+    d - Subunit
+
+    
+
+    i - Integrating resource
+    m - Monograph/Item
+    s - Serial
+
+08 - Type of control
+
+    # - No specified type
+
+    
+
+    a - Archival
+
+09 - Character coding scheme
+
+    # - MARC-8
+
+    
+
+    a - UCS/Unicode
+
+10 - Indicator count
+
+    2 - Number of character positions used for indicators
+
+    
+11 - Subfield code count
+
+    2 - Number of character positions used for a subfield code
+
+    
+12-16 - Base address of data
+
+    [number] - Length of Leader and Directory
+
+    
+17 - Encoding level
+
+    # - Full level
+    1 - Full level, material not examined
+    2 - Less-than-full level, material not examined
+    3 - Abbreviated level
+    4 - Core level
+
+    
+
+    5 - Partial (preliminary) level
+    7 - Minimal level
+    8 - Prepublication level
+    u - Unknown
+    z - Not applicable
+
+18 - Descriptive cataloging form
+
+    # - Non-ISBD
+    a - AACR 2
+    c - ISBD punctuation omitted
+
+    
+
+    i - ISBD punctuation included
+    n - Non-ISBD punctuation omitted
+    u - Unknown
+
+19 - Multipart resource record level
+
+    # - Not specified or not applicable
+    a - Set
+
+    
+
+    b - Part with independent title
+    c - Part with dependent title
+
+20 - Length of the length-of-field portion
+
+    4 - Number of characters in the length-of-field portion of a Directory entry
+
+    
+21 - Length of the starting-character-position portion
+
+    5 - Number of characters in the starting-character-position portion of a Directory entry 
+
+    
+22 - Length of the implementation-defined portion
+
+    0 - Number of characters in the implementation-defined portion of a Directory entry
+
+    
+23 - Undefined
+
+    0 - Undefined
+
+    
+FIELD DEFINITION AND SCOPE
+
+Fixed field that comprises the first 24 character positions (00-23) of each bibliographic record and consists of data elements that contain numbers or coded values that define the parameters for the processing of the record.
+
+Character positions 20-23 comprise the Entry map for the Directory. They contain four one-character numbers that specify the structure of the entries in the Directory. More detailed information about the structure of the Leader is contained in MARC 21 Specifications for Record Structure, Character Sets, and Exchange Media.

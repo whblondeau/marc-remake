@@ -1,0 +1,271 @@
+
+Legacy code
+001
+003
+
+099
+
+100
+110
+
+245
+
+260
+
+300
+
+500
+
+506
+
+511
+
+505
+
+546
+
+650
+
+700 (suspended)
+
+710
+
+856, subfield 42 (front cover art)
+
+856, subfield 40 ("play album" URL)  bozhe moi
+
+
+
+
+ALSO, THIS: (tweaked for line length)
+    // define the order in which fields will be rendered. 
+    // Not always numeric order!
+
+    // the presence of a field number that has not been defined 
+    // for the exporting record has no effect.
+    // HOWEVER. IF OMITTED: you will be BAFFLED that your new
+    // output definitions in `marc_content` above are not showing up. 
+    var variable_codes = [
+        "001",
+        "003",
+        "099",
+        "100",
+        "110",
+        "245",
+        "260",
+        "300",
+        "500",
+        "506",
+        "511",
+        "505",
+        "546",
+        "650",
+        "700",
+        "710",
+        "856",
+];
+
+
+
+
+
+
+
+
+
+
+
+    // extract content from JSON, by MARC Field Code:
+
+    // Code 001 (Nashville only!) This is a CONTROL FIELD, which is
+    // a lot simpler.
+
+    // Code 003 (only if we are providing a control code in 001!) Code 003
+    // is the authority under which the control code is issued: the 
+    // collection namespace.
+    // This, like 001, is a CONTROL FIELD.
+
+
+
+    // Code 99 (099 |a [collection label] MUSICat)
+    if (collection_label) {
+
+
+
+    // Code 100
+    // artist as person
+    if (album_json.main_artist_name) {
+
+
+    // code 110
+    // artist as group
+    if (album_json.main_artist_name) {
+
+
+
+
+    // Code 245
+    if (album_json.title) {
+
+
+
+    //Code 260
+
+    if (album_json.record_label) {
+        pattern = [
+                ["a", "[Place of publication not indicated] :"],
+                ["b", album_json.record_label + ',']
+        ];
+        if (album_json.release_date) {
+             pattern.push(["c", album_json.release_date.split("-")[0]]);
+        }
+    }
+    else {
+        // if no record label, just call it a MUSICat "publication"
+        pattern = [
+                ["a", "[Place of publication not indicated] :"],
+                ["b", "Made available through MUSICat."]
+
+
+
+    // Code 300
+    // format example per Dean @ SPL:
+    //=300  \\1 online resource (1 audio file (01:04)) :$bdigital.
+    if (album_json.tracks) {
+        if (! retval.variable_width["300"]) {
+            retval.variable_width["300"] = [];
+        };
+        var total_play_length = 0;
+        var trad_accumdx;
+        for (trad_accumdx = 0; trad_accumdx < album_json.tracks.length; trad_accumdx++) {
+            total_play_length += Number(album_json.tracks[trad_accumdx]["duration"]);
+        }
+
+
+
+
+    // Code 500
+    // Per James @ Nashville: a good place for submission round identifier
+    // using subfield 'a'
+    // extending this to all libraries
+    if (album_json.round) { # BROKEN NOW YES? OR NO?
+        // add array, named appropriately for this code, to the variable width 
+
+
+
+
+    // Code 506 
+    // 506 |a Streaming available to the general public |m BoomBox content provided by MUSICat.
+    if (! retval.variable_width["506"]) {
+        retval.variable_width["506"] = [];
+    }
+
+    pattern = [
+        ["a", "Streaming available to Library patrons."],
+        ["m", collection_label + " content provided by MUSICat"]
+
+
+
+
+    // Code 511
+    if (album_json.main_artist_name) {
+        pattern = [
+                ["a", "Performed by " + album_json.main_artist_name]
+        ];
+        
+
+
+
+
+    // Code 505
+    if (album_json.tracks) {
+        if (! retval.variable_width["505"]) {
+            retval.variable_width["505"] = [];
+        };
+
+
+        // change patterns to array in order of its track position keys
+       
+
+        // unpick patterns to deal with nesting.
+        var mjs_tracks = [];
+        for (var ptdx = 0; ptdx < patterns.length; ptdx++) {
+            if (patterns[ptdx] && patterns[ptdx].length == 2) {
+                mjs_tracks.push(patterns[ptdx][0]);
+                mjs_tracks.push(patterns[ptdx][1]);
+            }
+        }
+
+ 
+
+    // Code 546, spoken language:
+    // format example: "=546 $aSung in Portuguese, Spanish and English."
+    if (album_json["spoken_languages"]) {
+
+    
+
+    // Code 650
+    if (album_json.genre) {
+        if (! retval.variable_width["650"]) {
+            retval.variable_width["650"] = [];
+        };
+
+        if (music_genre != "Rap (Music)") {
+            music_genre = music_genre + " music";
+        }
+        
+        pattern = [
+                ["a", music_genre]
+        ];
+
+
+
+    // Code 700, Nashville: subfield1"Ben Swank", subfield e"curator"
+    // This is suspended pending getting the data about guest curators (and other
+    // collection/round-associated people) into the database.
+
+
+
+
+    // Code 710
+    // 710 2 #  |a Rabble LLC |m MUSICat
+
+    pattern = [
+            ["a", "Rabble, LLC"],
+            ["u", "MUSICat"]
+    ];
+        
+
+
+
+    // Code 856, subfield 42
+    if (album_json.front_cover_art) {
+        pattern = [
+                ["z", "Cover image"],
+                ["u", album_json.front_cover_art]
+        ];
+        
+
+    
+
+    //Code 856, subfield 40
+    if (album_json.id) {
+        // Get necessities for path
+        url_path = get_request_category_path(url_path);
+
+        // TODO get the '/albums/' hack fixed!!!
+        pattern = [
+                ["u", hostname + '/albums/' + album_json.id],
+                ["z", "Click here to access this electronic item"]
+        ];
+        
+
+
+
+    // send the two kinds of record as an array...
+    return [retval, marcjsrecord];
+};
+
+
+
+

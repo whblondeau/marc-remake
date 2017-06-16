@@ -1,0 +1,13 @@
+01X-09X: Numbers and Code Fields
+Heading Fields - General Information
+1XX: Main Entry Fields
+20X-24X: Title and Title-Related Fields
+25X-28X: Edition, Imprint, Etc. Fields
+3XX: Physical Description, Etc. Fields
+4XX: Series Statement Fields
+5XX: Note Fields
+6XX: Subject Access Fields
+70X-75X: Added Entry Fields
+76X-78X: Linking Entry Fields
+80X-83X: Series Added Entry Fields
+841-88X: Holdings, Location, Alternate Graphics, Etc. Fields

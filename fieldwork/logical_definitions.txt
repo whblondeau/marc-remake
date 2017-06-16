@@ -1,0 +1,38 @@
+
+
+CONTROL FIELD LOGICAL STRUCTURE
+
+TAG: 3 numeric digits
+    (no indicators)
+    (no field codes)
+    just a sequence of characters that represent data items whose 
+    interpretation is field-specific
+
+
+005 is 16 CHAR
+005     19940223151047.0
+[February 23, 1994, 3:10:47 P.M. (15:10:47)]
+
+006 is 18 CHAR
+
+
+007   oh you hateful motherfuckers.
+        it's a sequence of mostly single-digit codes
+        appears to define up to 23 character positions
+
+
+VARIABLE DATA FIELD LOGICAL STRUCTURE
+
+TAG: 3 numeric digits
+    (meaning specific to field defn):
+    first indicator             -single character
+    second indicator            -single character
+
+    SUBFIELD
+    sequence of subfield codes -- or... maybe not a sequence? can be an unordered collection? Hope so 'cause otherwise that blows goats.
+        each field is:
+            a "$" leading demarc
+            a single ASCII character whose meaning is field-dependent
+            zero or more bytes of data, can be UTF-8 or whatevs (what's valid?)
+
+A VARIABLE FIELD CAN OCCUR MULTIPLE TIMES FOR DIFFERENT PURPOSES... ???

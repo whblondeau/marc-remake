@@ -1,0 +1,253 @@
+VARIABLE CONTROL FIELDS
+
+00X       Control Fields-General Information
+001     Control Number Full | Concise
+003     Control Number Identifier Full | Concise
+005     Date and Time of Latest Transaction Full | Concise
+006     Fixed-Length Data Elements -- Additional Material Characteristics Full | Concise
+007     Physical Description Fixed Field Full | Concise
+008     Fixed Length Data Elements Full | Concise
+
+VARIABLE DATA FIELDS
+
+01X-09X       Control Information, Number and Codes-General Information
+010     Library of Congress Control Number Full | Concise
+013     Patent Control Information Full | Concise
+015     National Bibliography Number Full | Concise
+016     National Bibliographic Agency Control Number Full | Concise
+017     Copyright or Legal Deposit Number Full | Concise
+018     Copyright Article-Fee Code Full | Concise
+020     International Standard Book Number Full | Concise
+022     International Standard Serial Number Full | Concise
+024     Other Standard Identifier Full | Concise
+025     Overseas Acquisition Number Full | Concise
+027     Standard Technical Report Number Full | Concise
+028     Publisher or Distributor Number Full | Concise
+030     CODEN Designation Full | Concise
+031     Musical Incipits Information Full | Concise
+032     Postal Registration Number Full | Concise
+033     Date/Time and Place of an Event Full | Concise
+034     Coded Cartographic Mathematical Data Full | Concise
+035     System Control Number Full | Concise
+036     Original Study Number for Computer Data files Full | Concise
+037     Source of Acquisition Full | Concise
+038     Record Content Licensor Full | Concise
+040     Cataloging Source Full | Concise
+041     Language Code Full | Concise
+042     Authentication Code Full | Concise
+043     Geographic Area Code Full | Concise
+044     Country of Publishing/Producing Entity Code Full | Concise
+045     Time Period of Content Full | Concise
+046     Special Coded Dates Full | Concise
+047     Form of Musical Composition Code Full | Concise
+048     Number of Musical Instruments or Voices Code Full | Concise
+050     Library of Congress Call Number Full | Concise
+051     Library of Congress Copy, Issue, Offprint Statement Full | Concise
+052     Geographic Classification Full | Concise
+055     Classification Numbers Assigned in Canada Full | Concise
+060     National Library of Medicine Call Number Full | Concise
+061     National Library of Medicine Copy Statement Full | Concise
+066     Character Sets Present Full | Concise
+070     National Agricultural Library Call Number Full | Concise
+071     National Agricultural Library Copy Statement Full | Concise
+072     Subject Category Code Full | Concise
+074     GPO Item Number Full | Concise
+080     Universal Decimal Classification Number Full | Concise
+082     Dewey Decimal Classification Number Full | Concise
+083     Additional Dewey Decimal Classification Number Full | Concise
+084     Other Classification Number Full | Concise
+085     Synthesized Classification Number Components Full | Concise
+086     Government Document Classification Number Full | Concise
+088     Report Number Full | Concise
+09X     Local Call Numbers Full | Concise
+
+Heading Fields - General Information Sections
+X00     Personal Names-General Information
+X10     Corporate Names-General Information
+X11     Meeting Names-General Information
+X30     Uniform Titles-General Information
+
+1XX       Main Entries-General Information
+100     Main Entry-Personal Name Full | Concise
+110     Main Entry-Corporate Name Full | Concise
+111     Main Entry-Meeting Name Full | Concise
+130     Main Entry-Uniform Title Full | Concise
+
+20X-24X       Title and Title-Related Fields -- General Information
+210     Abbreviated Title Full | Concise
+222     Key Title Full | Concise
+240     Uniform Title Full | Concise
+242     Translation of Title by Cataloging Agency Full | Concise
+243     Collective Uniform Title Full | Concise
+245     Title Statement Full | Concise
+246     Varying Form of Title Full | Concise
+247     Former Title Full | Concise
+
+25X-28X       Edition, Imprint, Etc. Fields - General Information
+250     Edition Statement Full | Concise
+254     Musical Presentation Statement Full | Concise
+255     Cartographic Mathematical Data Full | Concise
+256     Computer File Characteristics Full | Concise
+257     Country of Producing Entity Full | Concise
+258     Philatelic Issue Data Full | Concise
+260     Publication, Distribution, etc. (Imprint) Full | Concise
+263     Projected Publication Date Full | Concise
+264     Production, Publication, Distribution, Manufacture, and Copyright Notice Full | Concise
+270     Address Full | Concise
+
+3XX       Physical Description, Etc. Fields - General Information
+300     Physical Description Full | Concise
+306     Playing Time Full | Concise
+307     Hours, Etc. Full | Concise
+310     Current Publication Frequency Full | Concise
+321     Former Publication Frequency Full | Concise
+336     Content Type Full | Concise
+337     Media Type Full | Concise
+338     Carrier Type Full | Concise
+340     Physical Medium Full | Concise
+342     Geospatial Reference Data Full | Concise
+343     Planar Coordinate Data Full | Concise
+344     Sound Characteristics Full | Concise
+345     Projection Characteristics of Moving Image Full | Concise
+346     Video Characteristics Full | Concise
+347     Digital File Characteristics Full | Concise
+348     Format of Notated Music Full | Concise
+351     Organization and Arrangement of Materials Full | Concise
+352     Digital Graphic Representation Full | Concise
+355     Security Classification Control Full | Concise
+357     Originator Dissemination Control Full | Concise
+362     Dates of Publication and/or Sequential Designation Full | Concise
+363     Normalized Date and Sequential Designation Full | Concise
+365     Trade Price Full | Concise
+366     Trade Availability Information Full | Concise
+370     Associated Place Full | Concise
+377     Associated Language Full | Concise
+380     Form of Work Full | Concise
+381     Other Distinguishing Characteristics of Work or Expression Full | Concise
+382     Medium of Performance Full | Concise
+383     Numeric Designation of Musical Work Full | Concise
+384     Key Full | Concise
+385     Audience Characteristics Full | Concise
+386     Creator/Contributor Characteristics Full | Concise
+388     Time Period of Creation Full | Concise
+
+4XX       Series Statements - General Information
+490     Series Statement Full | Concise
+
+5XX       Notes-General Information
+500     General Note Full | Concise
+501     With Note Full | Concise
+502     Dissertation Note Full | Concise
+504     Bibliography, Etc. Note Full | Concise
+505     Formatted Contents Note Full | Concise
+506     Restrictions on Access Note Full | Concise
+507     Scale Note for Graphic Material Full | Concise
+508     Creation/Production Credits Note Full | Concise
+510     Citation/References Note Full | Concise
+511     Participant or Performer Note Full | Concise
+513     Type of Report and Period Covered Note Full | Concise
+514     Data Quality Note Full | Concise
+515     Numbering Peculiarities Note Full | Concise
+516     Type of Computer File or Data Note Full | Concise
+518     Date/Time and Place of an Event Note Full | Concise
+520     Summary, Etc. Full | Concise
+521     Target Audience Note Full | Concise
+522     Geographic Coverage Note Full | Concise
+524     Preferred Citation of Described Materials Note Full | Concise
+525     Supplement Note Full | Concise
+526     Study Program Information Note Full | Concise
+530     Additional Physical Form Available Note Full | Concise
+533     Reproduction Note Full | Concise
+534     Original Version Note Full | Concise
+535     Location of Originals/Duplicates Note Full | Concise
+536     Funding Information Note Full | Concise
+538     System Details Note Full | Concise
+540     Terms Governing Use and Reproduction Note Full | Concise
+541     Immediate Source of Acquisition Note Full | Concise
+542     Information Relating to Copyright Status Full | Concise
+544     Location of Other Archival Materials Note Full | Concise
+545     Biographical or Historical Data Full | Concise
+546     Language Note Full | Concise
+547     Former Title Complexity Note Full | Concise
+550     Issuing Body Note Full | Concise
+552     Entity and Attribute Information Note Full | Concise
+555     Cumulative Index/Finding Aids Note Full | Concise
+556     Information about Documentation Note Full | Concise
+561     Ownership and Custodial History Full | Concise
+562     Copy and Version Identification Note Full | Concise
+563     Binding Information Full | Concise
+565     Case File Characteristics Note Full | Concise
+567     Methodology Note Full | Concise
+580     Linking Entry Complexity Note Full | Concise
+581     Publications About Described Materials Note Full | Concise
+583     Action Note Full | Concise
+584     Accumulation and Frequency of Use Note Full | Concise
+585     Exhibitions Note Full | Concise
+586     Awards Note Full | Concise
+588     Source of Description Note Full | Concise
+59X     Local Notes Full | Concise
+
+6XX       Subject Access Fields - General Information
+600     Subject Added Entry-Personal Name Full | Concise
+610     Subject Added Entry-Corporate Name Full | Concise
+611     Subject Added Entry-Meeting Name Full | Concise
+630     Subject Added Entry-Uniform Title Full | Concise
+647     Subject Added Entry-Named Event Full | Concise
+648     Subject Added Entry-Chronological Term Full | Concise
+650     Subject Added Entry-Topical Term Full | Concise
+651     Subject Added Entry-Geographic Name Full | Concise
+653     Index Term-Uncontrolled Full | Concise
+654     Subject Added Entry-Faceted Topical Terms Full | Concise
+655     Index Term-Genre/Form Full | Concise
+656     Index Term-Occupation Full | Concise
+657     Index Term-Function Full | Concise
+658     Index Term-Curriculum Objective Full | Concise
+662     Subject Added Entry-Hierarchical Place Name Full | Concise
+69X     Local Subject Access Fields Full | Concise
+
+70X-75X       Added Entries - General Information
+700     Added Entry-Personal Name Full | Concise
+710     Added Entry-Corporate Name Full | Concise
+711     Added Entry-Meeting Name Full | Concise
+720     Added Entry-Uncontrolled Name Full | Concise
+730     Added Entry-Uniform Title Full | Concise
+740     Added Entry-Uncontrolled Related/Analytical Title Full | Concise
+751     Added Entry-Geographic Name Full | Concise
+752     Added Entry-Hierarchical Place Name Full | Concise
+753     System Details Access to Computer Files Full | Concise
+754     Added Entry-Taxonomic Identification Full | Concise
+
+76X-78X       Linking Entries-General Information
+760     Main Series Entry Full | Concise
+762     Subseries Entry Full | Concise
+765     Original Language Entry Full | Concise
+767     Translation Entry Full | Concise
+770     Supplement/Special Issue Entry Full | Concise
+772     Supplement Parent Entry Full | Concise
+773     Host Item Entry Full | Concise
+774     Constituent Unit Entry Full | Concise
+775     Other Edition Entry Full | Concise
+776     Additional Physical Form Entry Full | Concise
+777     Issued With Entry Full | Concise
+780     Preceding Entry Full | Concise
+785     Succeeding Entry Full | Concise
+786     Data Source Entry Full | Concise
+787     Other Relationship Entry Full | Concise
+
+80X-83X       Series Added Entries-General Information
+800     Series Added Entry-Personal Name Full | Concise
+810     Series Added Entry-Corporate Name Full | Concise
+811     Series Added Entry-Meeting Name Full | Concise
+830     Series Added Entry-Uniform Title Full | Concise
+
+841-88X       Holdings, Alternate Graphics, Etc.-General Information
+850     Holding Institution Full | Concise
+852     Location Full | Concise
+856     Electronic Location and Access Full | Concise
+880     Alternate Graphic Representation Full | Concise
+882     Replacement Record Information Full | Concise
+883     Machine-generated Metadata Provenance Full | Concise
+884     Description Conversion Information Full | Concise
+885     Matching Information Full | Concise
+886     Foreign MARC Information Field Full | Concise
+887     Non-MARC Information Field Full | Concise

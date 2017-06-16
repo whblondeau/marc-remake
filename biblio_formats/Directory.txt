@@ -1,0 +1,17 @@
+Directory (NR)
+MARC 21 Bibliographic
+February 1999
+Indicators and Subfield Codes
+Has no indicators or subfield codes; the data elements are positionally defined.
+Character Positions
+
+00-02 - Tag     # OMFG "Tag" means "FIELD NUMBER"
+03-06 - Field length
+07-11 - Starting character position
+    "...starting character position of the variable field relative to the Base address of data (Leader/12-16) of the record. A Starting character position number of less than five digits is right justified and unused positions contain zeros."
+
+
+EXAMPLES    # (whitespace added, yes???  YES)
+Entry 1     001     0013    00000
+Entry 2     008     0041    00013
+Entry 3     050     0011    00054

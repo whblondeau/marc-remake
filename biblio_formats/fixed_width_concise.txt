@@ -1,0 +1,55 @@
+
+MARC abstract data description
+
+CONTROL (FIXED WIDTH) FIELDS
+(001-009)
+
+001 - Control Number 
+    Control number assigned by the organization creating, using, or distributing the record. The MARC code for the organization is contained in field 003 (Control Number Identifier).
+
+003 - Control Number Identifier
+    MARC code for the organization whose control number is contained in field 001 (Control Number). 
+
+005 - Date and Time of Latest Transaction
+    Sixteen characters that indicate the date and time of the latest record transaction and serve as a version identifier for the record. They are recorded according to Representation of Dates and Times (ISO 8601). The date requires 8 numeric characters in the pattern yyyymmdd. The time requires 8 numeric characters in the pattern hhmmss.f, expressed in terms of the 24-hour (00-23) clock. 
+
+006 - Fixed-Length Data Elements - Additional Material Characteristics 
+    Eighteen character positions (00-17) that provide for coding information about special aspects of the item being cataloged that cannot be coded in field 008 (Fixed-Length Data Elements). It is used in cases when an item has multiple characteristics (e.g., printed material with an accompanying cassette or a map that is issued serially) and to record the coded serial aspects of nontextual continuing resources.
+
+    Field has a generic tree structure, whereby the code given in 006/00 (Form of material) determines the data elements defined for subsequent character positions. Except for code s (Serial/Integrating resource), the codes in field 006/00 correspond to those in Leader/06 (Type of record). For each occurrence of field 006, the codes defined for character positions 01-17 will be the same as those defined in the corresponding field 008, character positions 18-34. Configurations of field 006 are given in the following order: books, computer files/electronic resources, maps, music, continuing resources, visual materials, and mixed materials. 
+
+007 - Physical Description Fixed Field
+    Special information about the physical characteristics in a coded form. The information may represent the whole item or parts of an item such as accompanying material.
+
+    The physical characteristics are often related to information in other parts of the MARC record especially from field 300 (Physical Description) or one of the 5XX note fields.
+
+    Field has a generic tree structure, whereby codes given in 007/00 (Category of material) determine the data elements defined for subsequent character positions.
+
+    The data elements in field 007 are positionally defined and the number of character positions in field 007 depends upon the code contained in 007/00. Character position 00 contains a code that identifies the category of material. The fill character (|) is not allowed in this position. The fill character may be used in any other character position when the cataloging agency makes no attempt to code the position.
+
+    The categories of material for which field 007 is applicable in bibliographic records are presented in the following order in the field description: map, electronic resource, globe, tactile material, projected graphic, microform, nonprojected graphic, motion picture, kit, notated music, remote-sensing image, sound recording, text, videorecording, and unspecified. 
+
+
+008 - Fixed-Length Data Elements
+    Forty character positions (00-39) that provide coded information about the record as a whole and about special bibliographic aspects of the item being cataloged. These coded data elements are potentially useful for retrieval and data management purposes.
+
+    Data elements are positionally-defined. Character positions that are not defined contain a blank (#). All defined character positions must contain a defined code; for some field 008 positions, this may be the fill character (|). The fill character may be used (in certain character positions) when a cataloging organization makes no attempt to code the character position. The fill character is not allowed in field 008 positions 00-05 (Date entered on file). Its use is discouraged in positions 07-10 (Date 1), 15-17 (Place of publication, production, or execution), and the 008 position defined for Form of item (either position 23 or 29 depending upon the 008 configuration).
+
+    Character positions 00-17 and 35-39 are defined the same across all types of material, with special consideration for position 06. The definition of character positions 18-34 was done independently for each type of material, although certain data elements are defined the same in the specifications for more than one type of material. When similar data elements are defined for inclusion in field 008 for different types of material, they occupy the same field 008 character positions.
+
+    In the following documentation, character positions are described in the order of their listing at the beginning of this section. Field 008 positions 00-17 and 35-39 (All materials) for all types of material are described first, followed by seven groups of sections for positions 18-34 (Books, Computer files, Maps, Music, Continuing resources, Visual materials and Mixed materials). 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

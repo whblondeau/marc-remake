@@ -1,0 +1,171 @@
+
+
+
+KNOWN PARAMETERS---------------------------------
+
+    collection_name
+    collection_host
+
+
+
+JSON EXTRACTED PROPERTIES------------------------
+
+    album_id = album_json['album']['id']
+    main_artist_name = album_json['album']['main_artist_name']
+    release_date = album_json['album']['release_date']
+    record_label = album_json['album']['record_label']
+    submission_round = album_json['album']['round']
+    tracks = album_json['album']['tracks']
+        track = album_json['album']['tracks'][-]
+            track_title = track['title']
+            track_position = track['position']
+            track_duration = track['duration']
+    spoken_languages = album_json['album']['spoken_languages']
+    music_genre = album_json['album']['genre']
+    front_cover_art_link = album_json['album']['front_cover_art']
+
+
+
+FUNCTIONS----------------------------------------
+
+    biblio_name(main_artist_name)
+    release_year(release_date)
+    release_decade(release_date)
+    render_track_duration(track['duration'])
+    pretty_comma_list(listexpr)
+    total_play_length(tracks)
+
+
+
+EXPORT DEFINE------------------------------------
+
+IF: (artist is single person)
+    FIELD: 100
+    IND1: 1
+    IND2: blank
+        SUBFIELD: a
+            album_json['main_artist_name']} (biblio listing format) 
+
+
+IF: (artist is a group)
+    FIELD: 110
+    IND1: 2
+    IND2: blank
+        SUBFIELD: a
+            album_json['main_artist_name'] + '' (Musical group)'
+
+
+FIELD: 245
+IND1: 1
+IND2: 0
+    SUBFIELD: a
+        album_json['title']
+    SUBFIELD: c
+        album_json['main_artist_name']
+
+
+FIELD: 260
+IND1: blank
+IND2: blank
+    SUBFIELD: a
+        '[Place of publication not indicated] :'
+    SUBFIELD: b
+        album_json['record_label']
+    SUBFIELD: c
+        album_json['release_date']} (expr: .split("-")[0])
+
+
+FIELD: 300
+IND1: blank
+IND2: blank
+    SUBFIELD: 1
+        'online resource (1 audio file (' + total_play_length(album_tracks)) + ')) ;'
+    SUBFIELD: b
+        'digital'
+
+
+FIELD: 500
+IND1: blank
+IND2: blank
+    SUBFIELD: a
+        'MUSICat Submission Round: ' + album_json['round']
+
+
+FIELD: 506
+IND1: blank
+IND2: blank
+    SUBFIELD: a
+        'Streaming available to Library patrons.'
+    SUBFIELD: m
+        collection_label + ' content provided by MUSICat'
+
+
+FIELD: 511
+IND1: blank
+IND2: blank
+    SUBFIELD: a
+        'Performed by '' + album_json['main_artist_name']
+
+
+FIELD: 505
+IND1: 0
+IND2: 0
+    FOR EACH: (track in album_json['tracks'])
+        SUBFIELD: t
+            track['title']
+        SUBFIELD: g
+            track['duration'] (standard track duration render)
+    SORT BY: (track['position'])
+
+
+FIELD: 546
+IND1: blank
+IND2: blank
+    SUBFIELD: a
+        'Sung in ' + album_json["spoken_languages"] (formatted pretty_comma)
+
+
+FIELD: 650
+IND1: blank
+IND2: 0
+    SUBFIELD: a
+        album_json['genre']
+    SUBFIELD: y
+        (computed_decade_literal)
+
+
+FIELD: 710
+IND1: 2
+IND2: blank
+    SUBFIELD: a
+        'Rabble, LLC'
+    SUBFIELD: u
+        'MUSICat'
+
+
+subfield 42 (see the abuse of ind_1 and ind_2?????)
+FIELD: 856
+IND1: 4 or blank
+IND2: 2 or blank
+    SUBFIELD: z
+        'Cover image'
+    SUBFIELD: u
+        album_json['front_cover_art']
+
+
+subfield 40
+FIELD: 856
+IND1: 4
+IND2: 0
+    SUBFIELD: u
+        'collection_host + '/albums/' + album_json[id]
+    SUBFIELD: z
+        'Click here to access this electronic item'
+
+
+
+
+
+
+
+

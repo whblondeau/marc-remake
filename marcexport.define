@@ -4,6 +4,7 @@
 KNOWN PARAMETERS---------------------------------
 
     collection_name
+    
     collection_host
 
 
@@ -11,17 +12,31 @@ KNOWN PARAMETERS---------------------------------
 JSON EXTRACTED PROPERTIES------------------------
 
     album_id = album_json['album']['id']
+
     main_artist_name = album_json['album']['main_artist_name']
+
+    album_title = album_json['album']['title']
+
     release_date = album_json['album']['release_date']
+
     record_label = album_json['album']['record_label']
+
     submission_round = album_json['album']['round']
-    tracks = album_json['album']['tracks']
+
+    album_tracks = album_json['album']['tracks']
+
         track = album_json['album']['tracks'][-]
+
             track_title = track['title']
+
             track_position = track['position']
+
             track_duration = track['duration']
+
     spoken_languages = album_json['album']['spoken_languages']
+
     music_genre = album_json['album']['genre']
+
     front_cover_art_link = album_json['album']['front_cover_art']
 
 
@@ -29,10 +44,15 @@ JSON EXTRACTED PROPERTIES------------------------
 FUNCTIONS----------------------------------------
 
     biblio_name(main_artist_name)
+
     release_year(release_date)
+
     release_decade(release_date)
-    render_track_duration(track['duration'])
+
+    render_track_duration(track_duration)
+
     pretty_comma_list(listexpr)
+
     total_play_length(tracks)
 
 
@@ -44,7 +64,7 @@ IF: (artist is single person)
     IND1: 1
     IND2: blank
         SUBFIELD: a
-            album_json['main_artist_name']} (biblio listing format) 
+            biblio_name(main_artist_name)
 
 
 IF: (artist is a group)
@@ -52,16 +72,16 @@ IF: (artist is a group)
     IND1: 2
     IND2: blank
         SUBFIELD: a
-            album_json['main_artist_name'] + '' (Musical group)'
+            main_artist_name + ' (Musical group)'
 
 
 FIELD: 245
 IND1: 1
 IND2: 0
     SUBFIELD: a
-        album_json['title']
+        album_title
     SUBFIELD: c
-        album_json['main_artist_name']
+        main_artist_name
 
 
 FIELD: 260
@@ -70,9 +90,9 @@ IND2: blank
     SUBFIELD: a
         '[Place of publication not indicated] :'
     SUBFIELD: b
-        album_json['record_label']
+        record_label
     SUBFIELD: c
-        album_json['release_date']} (expr: .split("-")[0])
+        release_date
 
 
 FIELD: 300
@@ -88,7 +108,7 @@ FIELD: 500
 IND1: blank
 IND2: blank
     SUBFIELD: a
-        'MUSICat Submission Round: ' + album_json['round']
+        'MUSICat Submission Round: ' + submission_round
 
 
 FIELD: 506
@@ -104,25 +124,25 @@ FIELD: 511
 IND1: blank
 IND2: blank
     SUBFIELD: a
-        'Performed by '' + album_json['main_artist_name']
+        'Performed by ' + main_artist_name
 
 
 FIELD: 505
 IND1: 0
 IND2: 0
-    FOR EACH: (track in album_json['tracks'])
+    FOR EACH: track in album_tracks
         SUBFIELD: t
-            track['title']
+            track_title
         SUBFIELD: g
-            track['duration'] (standard track duration render)
-    SORT BY: (track['position'])
+            render_duration(track_duration)
+    SORT BY: track_position
 
 
 FIELD: 546
 IND1: blank
 IND2: blank
     SUBFIELD: a
-        'Sung in ' + album_json["spoken_languages"] (formatted pretty_comma)
+        'Sung in ' + pretty_comma_list(spoken_languages)
 
 
 FIELD: 650
@@ -131,7 +151,7 @@ IND2: 0
     SUBFIELD: a
         album_json['genre']
     SUBFIELD: y
-        (computed_decade_literal)
+        release_decade(release_date)
 
 
 FIELD: 710
@@ -143,14 +163,14 @@ IND2: blank
         'MUSICat'
 
 
-subfield 42 (see the abuse of ind_1 and ind_2?????)
+subfield 42
 FIELD: 856
-IND1: 4 or blank
-IND2: 2 or blank
+IND1: 4
+IND2: 2
     SUBFIELD: z
         'Cover image'
     SUBFIELD: u
-        album_json['front_cover_art']
+        front_cover_art_link
 
 
 subfield 40
@@ -158,7 +178,7 @@ FIELD: 856
 IND1: 4
 IND2: 0
     SUBFIELD: u
-        'collection_host + '/albums/' + album_json[id]
+        'collection_host + '/albums/' + album_id]
     SUBFIELD: z
         'Click here to access this electronic item'
 

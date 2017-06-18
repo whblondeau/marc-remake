@@ -1,14 +1,21 @@
 #!/usr/bin/python
+# so "/" vs "//" integer division will behave the same in python 2 and 3
+from __future__ import division
 
 
 def biblio_name(main_artist_name):
     pass
 
 def release_year(release_date):
+    pass
 
 def release_decade(release_date):
+    pass
 
-def render_track_duration(track_duration):
+def render_tracks(tracks):
+    trackrenders = {}   # trackrender:position
+    
+
 
 # accepts a comma separated list in string form, and a boolean
 # that, if set to true, will stipulate use of the Oxford comma.
@@ -28,39 +35,71 @@ def pretty_comma_list(listexpr, oxford=False):
     return ', '.join(listexpr[:-1]) + last_sep + listexpr[-1]
 
 
-def total_play_length(tracks):
+def zeropad(chars, length):
+    retval = '0' * length
+    # print('zeropad retval: ' + retval)
+    retval = retval + chars
+    # print('zeropad retval: ' + retval)
+    return retval[-length:]
 
+
+def h_m_s(duration_in_float_seconds):
+    '''This function takes a high-precision number in seconds
+    (e.g. 364.61401360544215) and returns an h:m:s value
+    '''
     hours = 0
     minutes = 0
     seconds = 0
 
+    seconds = int(round(duration_in_float_seconds))
+    # print('raw integer seconds: ' + str(seconds))
+
+    hours = seconds // 3600
+    if hours:
+        seconds -= hours * 3600
+
+    minutes = seconds // 60
+    if minutes:
+        seconds -= minutes * 60
+
+    # print('hours: ' + str(hours))
+    # print('minutes: ' + str(minutes))
+    # print('seconds:' + str(seconds))
+
+    # print('zeropad(minutes, 2): ' + zeropad(str(minutes), 2))
+    # print('zeropad(seconds, 2): ' + zeropad(str(seconds), 2))
+
+    retval = ':' + zeropad(str(seconds), 2)
+    if minutes:
+        if hours:
+            retval = ':' + zeropad(str(minutes), 2) + retval
+        else:
+            retval = str(minutes) + retval
+    if hours:
+        retval = str(hours) + ':' + retval
+
+    return retval
+
+
+def render_duration(duration_in_float_seconds):
+    return '(' + h_m_s(duration_in_float_seconds) + ')'
+
+
+def total_play_length(tracks):
+
     float_seconds = 0.0
     for track in tracks:
         float_seconds += track['duration']
-    seconds = int(round(float_seconds))
-
-    bucket_sizes = (
-        (hours, 3600),    # 60 * 60
-        (minutes, 60),
-        (seconds, 1),
-    )
-
-    for bucket, count in intervals[:-1]:
-        # floor division imported from __future__
-        value = seconds // count
-        if value:
-            bucket += value
-            seconds -= value * count
-
-
-
+    
+    return h_m_s(float_seconds)
 
 
 def parse_marcexport_lines(marclines):
 
-
+    tripwire = 0
     marcfield_defs = []
     for line in marclines:
+        tripwire += 1
 
 
 
@@ -73,8 +112,6 @@ import sys
 import os, os.path
 import json
 import datetime
-# so "/" vs "//" integer division will behave the same in python 2 and 3
-from __future__ import division     
 
 if '--help' in sys.argv:
     print(usage)
@@ -118,4 +155,25 @@ with open(json_filename) as json_file:
 jsonobj = json.loads(jsonsource)
 
 print('JSON parsed successfully.')
+
+
+testdurs = [
+    364.61401360544215,
+    400.06068027210887,
+    308.56820861678005,
+    509.6957823129252,
+]
+
+print
+print('Testing durations:')
+for dur in testdurs:
+    print(dur)
+    print(h_m_s(dur))
+
+print
+print('Testing album duration:')
+tracks = jsonobj['album']['tracks'] 
+print(type(tracks))
+
+print('total_play_length(tracks)' + str(total_play_length(tracks)))
 

@@ -1,6 +1,72 @@
 #!/usr/bin/python
-# so "/" vs "//" integer division will behave the same in python 2 and 3
+# so "/" vs "//" integer division will behave the same 
+# in python 2 and 3.
+# imports from __future__ must be at the head of the file,
+# which is why this is here.
 from __future__ import division
+
+
+def extract_defined_properties(jsonobj, extractlines):
+    '''`jsonobj` is a JSON album record (logically the same as "album_json"
+    in marcexport.define).
+    `extractlines` is the content of the "JSON EXTRACTED PROPERTIES" block
+    in marcexport.define. Blank lines are not necessarily removed.
+    Returns a hash of properties, named according to the instructions
+    found in the block.
+    '''
+    album_json = jsonobj
+    retval = {}
+    for line in extractlines:
+        line = line.strip()
+        if not line:
+            continue
+        if '=' in line:
+            propname, expr = map(str.strip, line.split('='))
+            retval[propname] = eval(expr)
+    return retval
+
+def assemble_export_field_info(exportfieldlines, extracted_properties):
+
+    field_data = [] # list of MARC field data assembled accfording to definitions
+    current_field = None
+    for indx, line in enumerate(exportfieldlines):
+        line = line.rstrip()
+        strippedline = line.strip()
+        if line.endswith('----'):
+            continue
+
+        if not strippedline:
+            # blank line --> field is done
+            if current_field:
+                field_data.append(current_field)
+                current_field = None
+
+        if strippedline.startswith('FIELD:'):
+            # new field
+            current_field = {}
+            fieldtag = strippedline.split(':')[1].strip()
+            current_field['tag'] = fieldtag
+
+        elif strippedline.startswith('INDC1:'):
+            indc1 = strippedline.split(':')[1].strip()
+            if indc1 == 'blank':
+                indc1 = ' '
+            current_field['indc1'] = indc1
+
+        elif strippedline.startswith('INDC2:'):
+            indc2 = strippedline.split(':')[1].strip()
+            if indc2 == 'blank':
+                indc2 = ' '
+            current_field['indc2'] = indc2
+
+        elif strippedline.startswith('SUBFIELD:'):
+            if 'subfields' not in current_field:
+                current_field['subfields'] = []
+            subfield_code = strippedline.split(':')[1].strip()
+            subfield_content = exportfieldlines[indx + 1].strip()
+            current_field['subfields'].append({subfield_code: subfield_content})
+
+    return field_data
 
 
 def biblio_name(main_artist_name):
@@ -12,8 +78,38 @@ def release_year(release_date):
 def release_decade(release_date):
     pass
 
-def render_tracks(tracks):
-    trackrenders = {}   # trackrender:position
+def marc_field_from_values(jsonobj, field_pattern):
+    '''This function, following the field pattern from the
+    marcexport.define file, constructs the abstract (e.g. dict)
+    representation of MARC data.
+    '''
+    content = {}
+    in_subfield = None
+    for line in field_pattern:
+        if line.strip().startswith('FIELD:'):
+            in_subfield = None
+            content['tag'] = line.split(':')[1].strip()
+        elif line.strip().startswith('INDC1:'):
+            content['indicator_1'] = line.split(':')[1].strip()
+        elif line.strip().startswith('INDC2:'):
+            content['indicator_2'] = line.split(':')[1].strip()
+
+
+
+
+def abstract_tracks(tracks, subfield_pattern, demarcator):
+    '''from a JSON `tracks` node, assembles the MARC subfields list of 
+    individual track subfileds in order
+    '''
+
+    for track in tracks:
+        pass
+
+
+# def render_tracks():
+#     trackrenders = {}   # trackrender:position
+
+#     for track in tracks:
     
 
 
@@ -94,12 +190,35 @@ def total_play_length(tracks):
     return h_m_s(float_seconds)
 
 
-def parse_marcexport_lines(marclines):
+def scan_marcexport_lines(marclines):
 
-    tripwire = 0
     marcfield_defs = []
-    for line in marclines:
-        tripwire += 1
+    block_indxs = {}
+    cur_block = None
+    for indx, line in enumerate(marclines):
+        if line.strip().endswith('--------'):
+            line = line.strip()
+            blockname = line[:line.find('----')]
+
+            if cur_block:
+                # close out old block
+                block_indxs[cur_block].append(indx-1)
+
+            # start new block
+            cur_block = blockname
+            block_indxs[blockname] = []
+            block_indxs[blockname].append(indx)
+
+    block_indxs[cur_block].append(len(marclines) - 1)
+
+    return block_indxs
+
+
+
+
+define_blocks = {}
+
+extracted_properties = {}
 
 
 
@@ -120,16 +239,16 @@ if '--help' in sys.argv:
 call_options = [arg for arg in sys.argv[1:] if arg.startswith('-')]
 call_params = [arg for arg in sys.argv[1:] if not arg.startswith('-')]
 
-def_filename, json_filename, collection, hostname = call_params[:4]
+def_filename, json_filename, collection_name, collection_host = call_params[:4]
 
 print('MARC export definition file:')
 print('    ' + def_filename)
 print('JSON sourcefile:')
 print('    ' + json_filename)
 print('Collection namespace:')
-print('    ' + collection)
+print('    ' + collection_name)
 print('Hostname:')
-print('    ' + hostname)
+print('    ' + collection_host)
 
 if not os.path.isfile(def_filename):
     print('FATAL ERROR: ' + 'MARC export definition "' + def_filename + '" is not a file.')
@@ -157,23 +276,59 @@ jsonobj = json.loads(jsonsource)
 print('JSON parsed successfully.')
 
 
-testdurs = [
-    364.61401360544215,
-    400.06068027210887,
-    308.56820861678005,
-    509.6957823129252,
-]
+# testdurs = [
+#     364.61401360544215,
+#     400.06068027210887,
+#     308.56820861678005,
+#     509.6957823129252,
+# ]
 
+# print
+# print('Testing durations:')
+# for dur in testdurs:
+#     print(dur)
+#     print(h_m_s(dur))
+
+# print
+# print('Testing album duration:')
+# tracks = jsonobj['album']['tracks'] 
+# print(type(tracks))
+
+# print('total_play_length(tracks)' + str(total_play_length(tracks)))
+
+define_indxs = scan_marcexport_lines(marclines)
 print
-print('Testing durations:')
-for dur in testdurs:
-    print(dur)
-    print(h_m_s(dur))
+print('define_indexs:')
+print(define_indxs)
 
-print
-print('Testing album duration:')
-tracks = jsonobj['album']['tracks'] 
-print(type(tracks))
+# define_blocks is source text from the marcexport.define file
+define_blocks = {}
+for block in define_indxs:
+    print(block)
+    print(define_indxs[block])
+    startswith = define_indxs[block][0]
+    endsbefore = define_indxs[block][1]
+    define_blocks[block] = marclines[startswith:endsbefore]
 
-print('total_play_length(tracks)' + str(total_play_length(tracks)))
+# for blockname in define_blocks:
+#     print
+#     print(blockname)
+#     for line in define_blocks[blockname]:
+#         print(line.rstrip())
+#     print
+
+# extract properties from JSON
+extractlines = define_blocks['JSON EXTRACTED PROPERTIES']
+extracted_properties = extract_defined_properties(jsonobj, extractlines)
+for prop in extracted_properties:
+    print
+    print(prop + ': ' + str(extracted_properties[prop]))
+
+# marshal MARC record data
+exportfieldlines = define_blocks['EXPORT DEFINE']
+export_field_info = assemble_export_field_info(exportfieldlines, extracted_properties)
+
+for field in export_field_info:
+    print
+    print(field)
 

@@ -1,5 +1,5 @@
 
-
+DESCRIPTION--------------------------------------
 
 KNOWN PARAMETERS---------------------------------
 
@@ -24,14 +24,6 @@ JSON EXTRACTED PROPERTIES------------------------
     submission_round = album_json['album']['round']
 
     album_tracks = album_json['album']['tracks']
-
-        track = album_json['album']['tracks'][-]
-
-            track_title = track['title']
-
-            track_position = track['position']
-
-            track_duration = track['duration']
 
     spoken_languages = album_json['album']['spoken_languages']
 
@@ -61,23 +53,23 @@ EXPORT DEFINE------------------------------------
 
 IF: (artist is single person)
     FIELD: 100
-    IND1: 1
-    IND2: blank
+    INDC1: 1
+    INDC2: blank
         SUBFIELD: a
             biblio_name(main_artist_name)
 
 
 IF: (artist is a group)
     FIELD: 110
-    IND1: 2
-    IND2: blank
+    INDC1: 2
+    INDC2: blank
         SUBFIELD: a
             main_artist_name + ' (Musical group)'
 
 
 FIELD: 245
-IND1: 1
-IND2: 0
+INDC1: 1
+INDC2: 0
     SUBFIELD: a
         album_title
     SUBFIELD: c
@@ -85,8 +77,8 @@ IND2: 0
 
 
 FIELD: 260
-IND1: blank
-IND2: blank
+INDC1: blank
+INDC2: blank
     SUBFIELD: a
         '[Place of publication not indicated] :'
     SUBFIELD: b
@@ -96,8 +88,8 @@ IND2: blank
 
 
 FIELD: 300
-IND1: blank
-IND2: blank
+INDC1: blank
+INDC2: blank
     SUBFIELD: 1
         'online resource (1 audio file (' + total_play_length(album_tracks)) + ')) ;'
     SUBFIELD: b
@@ -105,15 +97,15 @@ IND2: blank
 
 
 FIELD: 500
-IND1: blank
-IND2: blank
+INDC1: blank
+INDC2: blank
     SUBFIELD: a
         'MUSICat Submission Round: ' + submission_round
 
 
 FIELD: 506
-IND1: blank
-IND2: blank
+INDC1: blank
+INDC2: blank
     SUBFIELD: a
         'Streaming available to Library patrons.'
     SUBFIELD: m
@@ -121,15 +113,15 @@ IND2: blank
 
 
 FIELD: 511
-IND1: blank
-IND2: blank
+INDC1: blank
+INDC2: blank
     SUBFIELD: a
         'Performed by ' + main_artist_name
 
 
 FIELD: 505
-IND1: 0
-IND2: 0
+INDC1: 0
+INDC2: 0
     FOR EACH: track in album_tracks
         SUBFIELD: t
             track_title
@@ -139,15 +131,15 @@ IND2: 0
 
 
 FIELD: 546
-IND1: blank
-IND2: blank
+INDC1: blank
+INDC2: blank
     SUBFIELD: a
         'Sung in ' + pretty_comma_list(spoken_languages)
 
 
 FIELD: 650
-IND1: blank
-IND2: 0
+INDC1: blank
+INDC2: 0
     SUBFIELD: a
         album_json['genre']
     SUBFIELD: y
@@ -155,8 +147,8 @@ IND2: 0
 
 
 FIELD: 710
-IND1: 2
-IND2: blank
+INDC1: 2
+INDC2: blank
     SUBFIELD: a
         'Rabble, LLC'
     SUBFIELD: u
@@ -165,8 +157,8 @@ IND2: blank
 
 subfield 42
 FIELD: 856
-IND1: 4
-IND2: 2
+INDC1: 4
+INDC2: 2
     SUBFIELD: z
         'Cover image'
     SUBFIELD: u
@@ -175,8 +167,8 @@ IND2: 2
 
 subfield 40
 FIELD: 856
-IND1: 4
-IND2: 0
+INDC1: 4
+INDC2: 0
     SUBFIELD: u
         'collection_host + '/albums/' + album_id]
     SUBFIELD: z

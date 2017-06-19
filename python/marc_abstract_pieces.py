@@ -92,14 +92,14 @@ def validate_datafield(marc_datafield):
         raise ValueError(' and '.join(invalid_fields))
 
 
-def make_marc_datafield (tag, ind_1=None, ind_2=None, subfields=[]):
+def make_marc_datafield (tag, indc_1=None, indc_2=None, subfields=[]):
     '''`tag` is the 3 digit numeric field code.
     `ind_1` and `ind_2` are the indicators (metadata).
     `subfields` is a list of dicts: key is the subfield code
     (with the conventional '$' demarcator omitted);
     value is the data.
     '''
-    retval = {'tag': tag, 'ind_1': ind_1, 'ind_2': ind_2, 'subfields': subfields}
+    retval = {'tag': tag, 'indc_1': ind_1, 'indc_2': ind_2, 'subfields': subfields}
     validate_datafield(retval)
     return retval
 

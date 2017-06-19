@@ -64,6 +64,7 @@ def assemble_export_field_info(exportfieldlines, extracted_properties):
                 current_field['subfields'] = []
             subfield_code = strippedline.split(':')[1].strip()
             subfield_content = exportfieldlines[indx + 1].strip()
+            subfield_content = compute_subfield_val(subfield_content, extracted_properties)
             current_field['subfields'].append({subfield_code: subfield_content})
 
     return field_data
@@ -174,6 +175,18 @@ def h_m_s(duration_in_float_seconds):
     if hours:
         retval = str(hours) + ':' + retval
 
+    return retval
+
+def compute_subfield_val(expr, extracts):
+    retval = expr
+    for key in extracts:
+        if key in expr: 
+            expr = expr.replace(key, '"' + str(extracts[key]) + '"')
+        try:
+            retval = eval(expr)
+        except Exception as e:
+            print(e)
+        
     return retval
 
 

@@ -91,7 +91,7 @@ FIELD: 300
 INDC1: blank
 INDC2: blank
     SUBFIELD: 1
-        'online resource (1 audio file (' + total_play_length(album_tracks)) + ')) ;'
+        'online resource (1 audio file (' + total_play_length(album_tracks) + ')) ;'
     SUBFIELD: b
         'digital'
 

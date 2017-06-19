@@ -1,0 +1,64 @@
+
+'online resource (1 audio file (' + total_play_length(album_tracks)) + ')) ;'
+
+'online resource (1 audio file ('
+ + total_play_length(album_tracks)) + 
+ ')) ;'
+
+ so this was:
+
+ begin string with single quote.
+    run till CLOSING single quote is found
+
+    so we gotta stack opening and closing quotes
+    and nest parens
+
+    parens and plus signs inside quotes do not matter.
+
+NOT A STACK. PARSE TREE. LIST OF LISTS, bitch.
+
+each parse tree item is either delimited or demarcated.
+
+When I see " or ', that opens a string. I keep going forward till I find the corresponding closure.
+
+if not in string:
+When I see ( that delimits a paren. look for closure on ).
+
+if not in string: when I see + that demarcates
+
+So I am in STRING or NOT-STRING.
+
+I am in paren or not-paren
+
+each node has a type (concat, quotechar, parenchar)
+
+'online resource (1 audio file (' + total_play_length(album_tracks) + ')) ;'
+
+quotesingle: online resource (1 audio file (
+
+concat: total_play_length(album_tracks))
+
+concat: quotesingle: ')) ;'
+
+First pass: look for quotes. carve.
+
+singlequoted:'online resource (1 audio file ('
+unquoted: + total_play_length(album_tracks)) + 
+singlequoted:')) ;'
+
+second pass: concat is the bridge between quoted and unquoted. parse concats at start and finish. If they're not there it's WRONG.
+singlequoted:'online resource (1 audio file ('
+concat: 
+unquoted: total_play_length(album_tracks)) 
+concat: 
+singlequoted:')) ;'
+
+Third pass: for each unquoted, parse out parens
+singlequoted:'online resource (1 audio file ('
+concat: 
+unquoted: total_play_length
+paren:album_tracks 
+concat: 
+singlequoted:')) ;'
+for unquoted and paren, keep doing recursive parse
+

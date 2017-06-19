@@ -179,6 +179,22 @@ def h_m_s(duration_in_float_seconds):
 
 def compute_subfield_val(expr, extracts):
     retval = expr
+
+    stack = []
+    # do we have parens? is this a concatenation? bozhe moi.
+    accum = ''
+    for char in expr:
+        if char in '(+':
+            # new stack entry
+            stack.append(accum)
+            accum = char
+        elif char == ')':
+            stack.append
+
+
+
+
+
     for key in extracts:
         if key in expr: 
             expr = expr.replace(key, '"' + str(extracts[key]) + '"')

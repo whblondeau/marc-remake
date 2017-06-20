@@ -1,41 +1,104 @@
 #!/usr/bin/python
 
-# work to get a minimal parser
+# work to get a minimal parser: separate string literals 
+# from evaluable expressions
 
-expr = "'online resource (1 audio file (' + total_play_length(album_tracks) + ')) ;'"
+# test stubs:
 
-# tokenize: get quote blocks
-tokenized = []
-current_block = ''
-current_quotechar = None
-for char in expr:
-    if current_quotechar:
-        # we are in a quote block
-        if char == current_quotechar:
-            # done
+extracts = {
+    'album_tracks': 'abcdef',
+    'main_artist_name': 'prisxcilla yo'
+}
+
+def total_play_length(thang):
+    return str(thang).upper()
+
+def func1(onethang):
+
+    return onethang.split('x') 
+
+def func2(twothang):
+    twothang[0] = twothang[0].upper()
+
+def func3(threethang):
+    return ':'.join(threethang)
+
+
+
+def cut_into_segments(expr, literal_delims):
+    top_blocks = []
+    current_delim = None
+    current_block = ''
+    
+
+    for char in expr:
+
+        if current_delim:
+            # we are in a string literal
             current_block += char
-            tokenized.append(current_block)
-            # set up quoted block going forward
-            current_block = ''
-            current_quotechar = None
+            if char == current_delim:
+                # it's finished.
+                top_blocks.append(current_block)
+                current_delim = None
+                current_block = ''
         else:
-            # keep stashing
-            current_block += char
-    else:
-        # we are not in a quoted block
-        if char in '"\'':
-            # starting a new quote block
-            if current_block:
-                # nonquoted content has been accumulated
-                tokenized.append(current_block)
-            # set up quoted block going forward
-            current_quotechar = char
-            current_block = char
+            # we are not in a string literal
+            if char in literal_delims:
+                #now we are starting one
+                if current_block:
+                    # stash
+                    top_blocks.append(current_block)
+                # initialize new literal block
+                current_delim = char
+                current_block = char
+            else:
+                current_block += char
+
+    return top_blocks
+
+
+def parse(expr, literal_delims = ('"', "'")):
+
+    expr_list = cut_into_segments(expr, literal_delims)
+
+    for block in expr_list:
+        if not block:
+            print('wtf')
+            continue
+        if block[0] in literal_delims:
+            # string literal block
+            print(block)
         else:
-            current_block += char
+            # evaluable
+            print(block)
+            block = map(str.strip, block.split('+'))
+            print(block)
+            for subblock in block:
+                if not subblock:
+                    continue
+                for key in extracts:
+                    if key in subblock:
+                        subblock = subblock.replace(key, "'" + extracts[key] + "'")
+                print(subblock)
+                print('EVAL:')
+                print("'" + eval(subblock) + "'")
 
 
-for block in tokenized:
-    print block
 
 
+
+
+
+
+expr1 = "'online resource (1 audio file (' + total_play_length(album_tracks) + ')) ;'"
+
+print
+print parse(expr1)
+
+
+expr2 = '"hello" + func1(func2(func3(main_artist_name))) + "goodbye"'
+print
+print parse(expr2)
+
+
+print

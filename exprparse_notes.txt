@@ -62,3 +62,44 @@ concat:
 singlequoted:')) ;'
 for unquoted and paren, keep doing recursive parse
 
+
+TOKENIZE
+'online resource (1 audio file (' + total_play_length(album_tracks) + ')) ;'
+yields
+
+'
+online resource 
+(
+1 audio file 
+(
+'
++
+total_play_length
+(
+album_tracks
+)
++
+'
+)
+)
+ ;
+'
+
+tokenization:
+ - IN QUOTES, I OWN EVERYTHING.
+ - IN DELIMITERS, I NEED TO RECURSE
+ - CONCATS ADJACENT TO QUOTEBLOCK ARE NOMINAL
+
+
+TO SUM UP:
+0. TOKENIZE. if char in '"\'()[]+{}': split on these. Make a list of alternating char and content.
+1. extract quoted parts (find one, find its mate via lookahead)
+2. from unquoted, extract:
+    - parens
+    - square brackets
+    - curly braces (why the fuck not, eh?)
+    - INTERNAL concats
+
+
+2. 
+

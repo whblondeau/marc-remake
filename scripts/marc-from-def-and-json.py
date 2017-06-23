@@ -6,114 +6,33 @@
 from __future__ import division
 
 
-def extract_defined_properties(jsonobj, extractlines):
-    '''`jsonobj` is a JSON album record (logically the same as "album_json"
-    in marcexport.define).
-    `extractlines` is the content of the "JSON EXTRACTED PROPERTIES" block
-    in marcexport.define. Blank lines are not necessarily removed.
-    Returns a hash of properties, named according to the instructions
-    found in the block.
-    '''
-    album_json = jsonobj
-    retval = {}
-    for line in extractlines:
-        line = line.strip()
-        if not line:
-            continue
-        if '=' in line:
-            propname, expr = map(str.strip, line.split('='))
-            retval[propname] = eval(expr)
-    return retval
 
-def assemble_export_field_info(exportfieldlines, extracted_properties):
+# =============================================================================
+#
+# ================== EXPRESSION FUNCTIONS CALLABLE IN MARCEXPORT.DEFINE =======
 
-    field_data = [] # list of MARC field data assembled accfording to definitions
-    current_field = None
-    for indx, line in enumerate(exportfieldlines):
-        line = line.rstrip()
-        strippedline = line.strip()
-        if line.endswith('----'):
-            continue
-
-        if not strippedline:
-            # blank line --> field is done
-            if current_field:
-                field_data.append(current_field)
-                current_field = None
-
-        if strippedline.startswith('FIELD:'):
-            # new field
-            current_field = {}
-            fieldtag = strippedline.split(':')[1].strip()
-            current_field['tag'] = fieldtag
-
-        elif strippedline.startswith('INDC1:'):
-            indc1 = strippedline.split(':')[1].strip()
-            if indc1 == 'blank':
-                indc1 = ' '
-            current_field['indc1'] = indc1
-
-        elif strippedline.startswith('INDC2:'):
-            indc2 = strippedline.split(':')[1].strip()
-            if indc2 == 'blank':
-                indc2 = ' '
-            current_field['indc2'] = indc2
-
-        elif strippedline.startswith('SUBFIELD:'):
-            if 'subfields' not in current_field:
-                current_field['subfields'] = []
-            subfield_code = strippedline.split(':')[1].strip()
-            subfield_content = exportfieldlines[indx + 1].strip()
-            subfield_content = compute_subfield_val(subfield_content, extracted_properties)
-            current_field['subfields'].append({subfield_code: subfield_content})
-
-    return field_data
+# and their helper functions
 
 
-def biblio_name(main_artist_name):
-    pass
+def biblio_name(person_name):
+    if ',' not in person_name:
+        name_segments = person_name.split()     # split on spaces
+        if len(name_segments) > 1:
+            person_name = ','.join(name_segments[-1], name_segments[:-1])
+    return person_name
+
 
 def release_year(release_date):
-    pass
+    return str(release_date).split('-')[0]
+
 
 def release_decade(release_date):
-    pass
+    decade_string = release_date.split("-")[0][0:3]    # first 3 chars of year
+    decade_number = parseInt(decade_string)
+    decade_literal = str(decade_number) + "1-" + str(decade_number + 1) + "0";
+    return decade_literal
 
-def marc_field_from_values(jsonobj, field_pattern):
-    '''This function, following the field pattern from the
-    marcexport.define file, constructs the abstract (e.g. dict)
-    representation of MARC data.
-    '''
-    content = {}
-    in_subfield = None
-    for line in field_pattern:
-        if line.strip().startswith('FIELD:'):
-            in_subfield = None
-            content['tag'] = line.split(':')[1].strip()
-        elif line.strip().startswith('INDC1:'):
-            content['indicator_1'] = line.split(':')[1].strip()
-        elif line.strip().startswith('INDC2:'):
-            content['indicator_2'] = line.split(':')[1].strip()
-
-
-
-
-def abstract_tracks(tracks, subfield_pattern, demarcator):
-    '''from a JSON `tracks` node, assembles the MARC subfields list of 
-    individual track subfileds in order
-    '''
-
-    for track in tracks:
-        pass
-
-
-# def render_tracks():
-#     trackrenders = {}   # trackrender:position
-
-#     for track in tracks:
     
-
-
 # accepts a comma separated list in string form, and a boolean
 # that, if set to true, will stipulate use of the Oxford comma.
 # Returns the list with leading and trailing whitespace stripped from 
@@ -159,13 +78,6 @@ def h_m_s(duration_in_float_seconds):
     if minutes:
         seconds -= minutes * 60
 
-    # print('hours: ' + str(hours))
-    # print('minutes: ' + str(minutes))
-    # print('seconds:' + str(seconds))
-
-    # print('zeropad(minutes, 2): ' + zeropad(str(minutes), 2))
-    # print('zeropad(seconds, 2): ' + zeropad(str(seconds), 2))
-
     retval = ':' + zeropad(str(seconds), 2)
     if minutes:
         if hours:
@@ -177,46 +89,144 @@ def h_m_s(duration_in_float_seconds):
 
     return retval
 
-def compute_subfield_val(expr, extracts):
-    retval = expr
-
-    stack = []
-    # do we have parens? is this a concatenation? bozhe moi.
-    accum = ''
-    for char in expr:
-        if char in '(+':
-            # new stack entry
-            stack.append(accum)
-            accum = char
-        elif char == ')':
-            stack.append
-
-
-
-
-
-    for key in extracts:
-        if key in expr: 
-            expr = expr.replace(key, '"' + str(extracts[key]) + '"')
-        try:
-            retval = eval(expr)
-        except Exception as e:
-            print(e)
-        
-    return retval
-
 
 def render_duration(duration_in_float_seconds):
     return '(' + h_m_s(duration_in_float_seconds) + ')'
 
 
 def total_play_length(tracks):
-
     float_seconds = 0.0
     for track in tracks:
         float_seconds += track['duration']
-    
     return h_m_s(float_seconds)
+
+
+
+
+
+# =============================================================================
+#
+# ================== SUBFIELD EXPRESSION PARSING FUNCTIONS ====================
+
+
+def closes_delim(delims, char):
+    '''Returns True if char closes LAST value in delims'''
+    if not delims:
+        # already closed (empty)
+        return False
+
+    # the last character in a delim sequence is looking for its closure
+    openchar = delims[-1]   
+
+    if openchar in opaques:
+        # we are in a string literal
+        return (char == opaques[openchar])
+    if openchar in nestables:
+        # nestable expression
+        return (char == nestables[openchar])
+    else:
+        raise Exception('How did `' + current_delims[-1] + '` get into delims???')
+
+
+def opens_delim(delims, char):
+    if delims and delims[-1] in opaques:
+        # this is what "opaque" means. a quoted literal can contain anything
+        return False
+    else:
+        return char in opaques or char in nestables
+
+
+def sweep(expr):
+    # essentially a tokenizing pass
+    top_blocks = []     # sequence of blocks
+    current_block = ''
+    current_delims = []
+
+    for char in expr:
+
+        if closes_delim(current_delims, char):
+            # we are matching an earlier opening. If quote, no thing.
+            # if nestable... a little more involved.
+            if char in opaques.values():
+                # append it. Quotes don't get their own block like nestables do
+                current_block += char
+                top_blocks.append(current_block)
+
+            elif char in nestables.values():
+                top_blocks.append(current_block)
+                # closing char gets its own block
+                top_blocks.append(char)
+
+            # reset
+            current_block = ''
+            current_delims.pop()
+
+        elif opens_delim(current_delims, char):
+
+            if char in nestables:
+                if current_block:
+                    top_blocks.append(current_block)
+                # it gets its own block
+                top_blocks.append(char)
+                # reset
+                current_block = ''
+                current_delims.append(char)
+
+            elif char in opaques:
+                if current_block:
+                    top_blocks.append(current_block)
+
+                # put the char at the lead of the new block
+                current_block = ''
+                current_block += char
+                current_delims.append(char)
+        else:
+            # neither opens nor closes
+            current_block += char
+
+    # flush accumulated content to return value
+    if current_block:
+        top_blocks.append(current_block)
+    return top_blocks
+
+# Constants for field parse operations
+opaques = {'"': '"', "'": "'"}
+nestables = {'(':')', '[':']', '{':'}'}
+
+
+
+# =============================================================================
+#
+# ================== CORE FUNCTIONS FOR EXPORTING MARC RECORDS ================
+
+
+def abstract_tracks(tracks, subfield_pattern, demarcator):
+    '''from a JSON `tracks` node, assembles the MARC subfields list of 
+    individual track subfields in order
+    '''
+    for track in tracks:
+        pass
+
+
+
+
+
+def marc_field_from_values(jsonobj, field_pattern):
+    '''This function, following the field pattern from the
+    marcexport.define file, constructs the abstract (e.g. dict)
+    representation of MARC data.
+    '''
+    content = {}
+    in_subfield = None
+    for line in field_pattern:
+        if line.strip().startswith('FIELD:'):
+            in_subfield = None
+            content['tag'] = line.split(':')[1].strip()
+        elif line.strip().startswith('INDC1:'):
+            content['indicator_1'] = line.split(':')[1].strip()
+        elif line.strip().startswith('INDC2:'):
+            content['indicator_2'] = line.split(':')[1].strip()
+
 
 
 def scan_marcexport_lines(marclines):
@@ -243,6 +253,96 @@ def scan_marcexport_lines(marclines):
     return block_indxs
 
 
+
+def extract_defined_properties(jsonobj, extractlines):
+    '''`jsonobj` is a JSON album record (logically the same as "album_json"
+    in marcexport.define).
+    `extractlines` is the content of the "JSON EXTRACTED PROPERTIES" block
+    in marcexport.define. Blank lines are not necessarily removed.
+    Returns a hash of properties, named according to the instructions
+    found in the block.
+    '''
+    album_json = jsonobj
+    retval = {}
+    for line in extractlines:
+        line = line.strip()
+        if not line:
+            continue
+        if '=' in line:
+            propname, expr = map(str.strip, line.split('='))
+            retval[propname] = eval(expr)
+    return retval
+
+
+def compute_subfield_val(expr, opaques, nestables, extracts, functions):
+    retval = expr
+
+    stack = []
+
+    # this is a parse 
+    tokens = sweep(expr)
+    for token in tokens:
+        if token[0] in opaques:
+            # this is a string literal. Don't mess with it.
+            continue
+
+        for extract in extracts:
+           
+ 
+
+    for key in extracts:
+        if key in expr: 
+            expr = expr.replace(key, '"' + str(extracts[key]) + '"')
+        try:
+            retval = eval(expr)
+        except Exception as e:
+            print(e)
+        
+    return retval
+
+def assemble_export_field_info(exportfieldlines, extracted_properties):
+
+    field_data = [] # list of MARC field data assembled according to definitions
+    current_field = None
+    for indx, line in enumerate(exportfieldlines):
+        line = line.rstrip()
+        strippedline = line.strip()
+        if line.endswith('----'):
+            continue
+
+        if not strippedline:
+            # blank line --> field is done
+            if current_field:
+                field_data.append(current_field)
+                current_field = None
+
+        if strippedline.startswith('FIELD:'):
+            # new field
+            current_field = {}
+            fieldtag = strippedline.split(':')[1].strip()
+            current_field['tag'] = fieldtag
+
+        elif strippedline.startswith('INDC1:'):
+            indc1 = strippedline.split(':')[1].strip()
+            if indc1 == 'blank':
+                indc1 = ' '
+            current_field['indc1'] = indc1
+
+        elif strippedline.startswith('INDC2:'):
+            indc2 = strippedline.split(':')[1].strip()
+            if indc2 == 'blank':
+                indc2 = ' '
+            current_field['indc2'] = indc2
+
+        elif strippedline.startswith('SUBFIELD:'):
+            if 'subfields' not in current_field:
+                current_field['subfields'] = []
+            subfield_code = strippedline.split(':')[1].strip()
+            subfield_content = exportfieldlines[indx + 1].strip()
+            subfield_content = compute_subfield_val(subfield_content, extracted_properties)
+            current_field['subfields'].append({subfield_code: subfield_content})
+
+    return field_data
 
 
 define_blocks = {}

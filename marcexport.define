@@ -1,6 +1,9 @@
 
 DESCRIPTION--------------------------------------
 
+
+
+
 KNOWN PARAMETERS---------------------------------
 
     collection_name
@@ -27,9 +30,9 @@ JSON EXTRACTED PROPERTIES------------------------
 
     spoken_languages = album_json['album']['spoken_languages']
 
-    music_genre = album_json['album']['genre']
+    genre = album_json['album']['genre']
 
-    front_cover_art_link = album_json['album']['front_cover_art']
+    front_cover_art = album_json['album']['front_cover_art']
 
 
 
@@ -128,6 +131,7 @@ INDC2: 0
         SUBFIELD: g
             render_duration(track_duration)
     SORT BY: track_position
+    DEMARC-WITH: '--'
 
 
 FIELD: 546

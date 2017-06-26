@@ -1,6 +1,9 @@
 
 DESCRIPTION--------------------------------------
 
+
+
+
 KNOWN PARAMETERS---------------------------------
 
     collection_name
@@ -17,7 +20,7 @@ JSON EXTRACTED PROPERTIES------------------------
 
     album_title = album_json['album']['title']
 
-    release_date = album_json['album']['release_date']
+    release_date = normalize_date(album_json['album']['release_date'])
 
     record_label = album_json['album']['record_label']
 
@@ -27,15 +30,17 @@ JSON EXTRACTED PROPERTIES------------------------
 
     spoken_languages = album_json['album']['spoken_languages']
 
-    music_genre = album_json['album']['genre']
+    genre = album_json['album']['genre']
 
-    front_cover_art_link = album_json['album']['front_cover_art']
+    front_cover_art = album_json['album']['front_cover_art']
 
 
 
 FUNCTIONS----------------------------------------
 
     biblio_name(main_artist_name)
+
+    normalize_date(release_date)
 
     release_year(release_date)
 
@@ -45,7 +50,7 @@ FUNCTIONS----------------------------------------
 
     pretty_comma_list(listexpr)
 
-    total_play_length(tracks)
+    total_play_length(album_tracks)
 
 
 
@@ -127,7 +132,8 @@ INDC2: 0
             track_title
         SUBFIELD: g
             render_duration(track_duration)
-    SORT BY: track_position
+        SORT BY: track_position
+        DEMARC-WITH: '--'
 
 
 FIELD: 546

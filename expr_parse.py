@@ -1,104 +1,153 @@
 #!/usr/bin/python
 
-# work to get a minimal parser: separate string literals 
-# from evaluable expressions
-
-# test stubs:
-
-extracts = {
-    'album_tracks': 'abcdef',
-    'main_artist_name': 'prisxcilla yo'
-}
-
-def total_play_length(thang):
-    return str(thang).upper()
-
-def func1(onethang):
-
-    return onethang.split('x') 
-
-def func2(twothang):
-    twothang[0] = twothang[0].upper()
-
-def func3(threethang):
-    return ':'.join(threethang)
+# work to get a minimal parser
 
 
 
-def cut_into_segments(expr, literal_delims):
-    top_blocks = []
-    current_delim = None
+
+
+opaques = {'"': '"', "'": "'"}
+nestables = {'(':')', '[':']', '{':'}'}
+
+# what does current_delims look like?
+# it's a sequence of deelims encountered so far in traversing a string expr
+
+# for
+# (upper("hello" + "goodbye") + lower("boing"))
+
+# []                ''
+# ['(']             '('
+# ['(']             '(', 'upper'
+# ['(', '(']        '(', 'upper', '('
+# ['(', '(', '"']   '(', 'upper', '(', "hel...
+# ['(', '(']        '(', 'upper', '(', "hello"
+# ['(', '(']        '(', 'upper', '(', "hello", ' + '
+#                   '(', 'upper', '(', "hello", ' + '
+# ['(', '(', '"']   '(', 'upper', '(', "hello", ' + ', "goo...
+# ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye"
+# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')'
+# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + '
+# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower'
+# ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '('
+# ['(', '(', '"']   '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boi..
+# ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boing"
+# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boing", ')'
+#   FINISH
+# []                '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boing", ')', ')'
+
+
+
+
+
+def closes_delim(delims, char):
+    '''Returns True if char closes LAST value in delims'''
+    if not delims:
+        # already closed (empty)
+        return False
+
+    # the last character in a delim sequence is looking for its closure
+    openchar = delims[-1]   
+
+    if openchar in opaques:
+        # we are in a string literal
+        return (char == opaques[openchar])
+    if openchar in nestables:
+        # nestable expression
+        return (char == nestables[openchar])
+    else:
+        raise Exception('How did `' + current_delims[-1] + '` get into delims???')
+
+
+def opens_delim(delims, char):
+    if delims and delims[-1] in opaques:
+        # this is what "opaque" means. a quoted literal can contain anything
+        return False
+    else:
+        return char in opaques or char in nestables
+
+
+opaques = {'"': '"', "'": "'"}
+nestables = {'(':')', '[':']', '{':'}'}
+
+
+def sweep(expr):
+    # essentially a tokenizing pass
+    top_blocks = []     # sequence of blocks
     current_block = ''
-    
+    current_delims = []
 
     for char in expr:
 
-        if current_delim:
-            # we are in a string literal
-            current_block += char
-            if char == current_delim:
-                # it's finished.
-                top_blocks.append(current_block)
-                current_delim = None
-                current_block = ''
-        else:
-            # we are not in a string literal
-            if char in literal_delims:
-                #now we are starting one
-                if current_block:
-                    # stash
-                    top_blocks.append(current_block)
-                # initialize new literal block
-                current_delim = char
-                current_block = char
-            else:
+        if closes_delim(current_delims, char):
+            # we are matching an earlier opening. If quote, no thing.
+            # if nestable... a little more involved.
+            if char in opaques.values():
+                # append it. Quotes don't get their own block like nestables do
                 current_block += char
+                top_blocks.append(current_block)
 
-    return top_blocks
+            elif char in nestables.values():
+                top_blocks.append(current_block)
+                # closing char gets its own block
+                top_blocks.append(char)
 
+            # reset
+            current_block = ''
+            current_delims.pop()
 
-def parse(expr, literal_delims = ('"', "'")):
+        elif opens_delim(current_delims, char):
 
-    expr_list = cut_into_segments(expr, literal_delims)
+            if char in nestables:
+                if current_block:
+                    top_blocks.append(current_block)
+                # it gets its own block
+                top_blocks.append(char)
+                # reset
+                current_block = ''
+                current_delims.append(char)
 
-    for block in expr_list:
-        if not block:
-            print('wtf')
-            continue
-        if block[0] in literal_delims:
-            # string literal block
-            print(block)
+            elif char in opaques:
+                if current_block:
+                    top_blocks.append(current_block)
+
+                # put the char at the lead of the new block
+                current_block = ''
+                current_block += char
+                current_delims.append(char)
+
+        elif char == '+':
+            # give this a block of its own, but make no delim entry
+            # because this is a unary operator
+            if current_block:
+                top_blocks.append(current_block)
+            top_blocks.append(char)
+            current_block = ''
+
         else:
-            # evaluable
-            print(block)
-            block = map(str.strip, block.split('+'))
-            print(block)
-            for subblock in block:
-                if not subblock:
-                    continue
-                for key in extracts:
-                    if key in subblock:
-                        subblock = subblock.replace(key, "'" + extracts[key] + "'")
-                print(subblock)
-                print('EVAL:')
-                print("'" + eval(subblock) + "'")
+            # neither opens nor closes
+            current_block += char
 
-
-
-
-
-
+    # flush accumulated content to return value
+    if current_block:
+        top_blocks.append(current_block)
+    return top_blocks
 
 
 expr1 = "'online resource (1 audio file (' + total_play_length(album_tracks) + ')) ;'"
 
 print
-print parse(expr1)
+blocks = sweep(expr1)
+restore = ''
+for block in blocks:
+    print(block)
+    restore += block
+print(restore)
 
-
+print
 expr2 = '"hello" + func1(func2(func3(main_artist_name))) + "goodbye"'
-print
-print parse(expr2)
-
-
-print
+blocks = sweep(expr2)
+restore = ''
+for block in blocks:
+    print(block)
+    restore += block
+print(restore)

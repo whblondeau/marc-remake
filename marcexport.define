@@ -40,6 +40,8 @@ FUNCTIONS----------------------------------------
 
     biblio_name(main_artist_name)
 
+    normalize_date(release_date)
+
     release_year(release_date)
 
     release_decade(release_date)

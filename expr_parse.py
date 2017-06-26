@@ -27,13 +27,13 @@ nestables = {'(':')', '[':']', '{':'}'}
 # ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye"
 # ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')'
 # ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + '
-# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + lower'
-# ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + lower', '('
-# ['(', '(', '"']   '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + lower', '(', "boi..
-# ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + lower', '(', "boing"
-# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + lower', '(', "boing", ')'
+# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower'
+# ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '('
+# ['(', '(', '"']   '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boi..
+# ['(', '(']        '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boing"
+# ['(']             '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boing", ')'
 #   FINISH
-# []                '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + lower', '(', "boing", ')', ')'
+# []                '(', 'upper', '(', "hello", ' + ', "goodbye", ')', ' + ', 'lower', '(', "boing", ')', ')'
 
 
 
@@ -114,6 +114,15 @@ def sweep(expr):
                 current_block = ''
                 current_block += char
                 current_delims.append(char)
+
+        elif char == '+':
+            # give this a block of its own, but make no delim entry
+            # because this is a unary operator
+            if current_block:
+                top_blocks.append(current_block)
+            top_blocks.append(char)
+            current_block = ''
+
         else:
             # neither opens nor closes
             current_block += char

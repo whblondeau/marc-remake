@@ -20,7 +20,7 @@ JSON EXTRACTED PROPERTIES------------------------
 
     album_title = album_json['album']['title']
 
-    release_date = album_json['album']['release_date']
+    release_date = normalize_date(album_json['album']['release_date'])
 
     record_label = album_json['album']['record_label']
 
@@ -48,7 +48,7 @@ FUNCTIONS----------------------------------------
 
     pretty_comma_list(listexpr)
 
-    total_play_length(tracks)
+    total_play_length(album_tracks)
 
 
 
@@ -130,8 +130,8 @@ INDC2: 0
             track_title
         SUBFIELD: g
             render_duration(track_duration)
-    SORT BY: track_position
-    DEMARC-WITH: '--'
+        SORT BY: track_position
+        DEMARC-WITH: '--'
 
 
 FIELD: 546

@@ -5,13 +5,229 @@
 # which is why this is here.
 from __future__ import division
 
+import copy
+
+
+# Constants for subfield expression parse operations
+opaque_delims = {'"': '"', "'": "'"}
+nestable_delims = {'(':')', '[':']', '{':'}'}
+
+
+
+# =============================================================================
+#
+# ================== GENERAL UTILITIES ========================================
+
+
+def read_indent(line):
+    indx = -1
+    if not line.strip():
+        return indx
+
+    for char in line:
+        indx += 1
+        if char.strip():
+            return indx
+
+# def compose_multiple_sublistings(content_nodes, listing_subfields):
+#     for 
+
+
+
+# =============================================================================
+#
+# ================== PARSING MARCEXPORT.DEFINE INTO A DATA STRUCTURE ==========
+
+
+def parse_marcexport_deflines(deflines):
+    '''This function reads a sequence of text lines that have been read from
+    a MARC export definition.
+    From those it parses source content for the different
+    categories of information. (It ignores "DESCRIPTION", which is
+    non-machine-parseable documentation for humans.)
+    
+    From the content, it parses a dictionary/map/hash/object of marcexport
+    datastructures:
+        - 'known_parameters', required parameters
+        - 'usable_functions', function names anb brief signature/descriptions
+        - 'json_value_exprs', named expressions for pulling values from a
+            JSON instance.
+        - 'field_templates', an ordered sequence of data structures listing
+            desired fixed values and extractiono expression for MARC fields.
+            This list of templates thus controls field order, subfield order,
+            and instructions for pulling data from the expected JSON instance.
+
+    This marcexport datastructures dictionary/map/hash/object is returned.
+    '''
+    defblocks = {}
+    current_blockname = None
+
+    for line in deflines:
+        if line.strip().endswith('--------'):
+            line = line.strip()
+            current_blockname = line[:line.find('----')]
+            current_blockname = current_blockname.lower().replace(' ', '_')
+            defblocks[current_blockname] = []
+
+        else:
+            if current_blockname:
+                defblocks[current_blockname].append(line.strip())
+
+    print(str(len(defblocks)) + ' blocks read in.')
+    for block in defblocks:
+        print(block + ' (' + str(len(defblocks[block])) + ' lines)')
+
+    # now evaluate marcexport define content as required
+    marcdefs = {}
+
+    # sanity check and note: parameters
+    paramnames = []
+
+    for line in defblocks['known_parameters']:
+        if line.strip():
+            paramnames.append(line.strip())
+
+    marcdefs['known_parameters'] = paramnames
+
+    # function names and expressions
+    marcdefs['functions'] = {}
+    for line in defblocks['functions']:
+        line = line.strip()
+        if line:
+            # extract the function name
+            funcname = line.split('(')[0]
+            marcdefs['functions'][funcname] = line
+
+    # expressions for pulling data out of JSON instances
+    marcdefs['json_value_exprs'] = {}
+    for line in defblocks['json_extracted_properties']:
+        line = line.strip()
+        parts = line.split('=')
+        # someone might put some equals signs in the expr - condition or something
+        marcdefs['json_value_exprs'][parts[0].strip()] = ('='.join(parts[1:])).strip()
+
+
+    # ordered sequence of templates for MARC fields
+    marcdefs['field_templates'] = None
+
+    field_data = [] # list of MARC field data assembled according to definitions
+    current_field = None
+
+    for indx, line in enumerate(defblocks['export_define']):
+
+        indented_line = line.rstrip()
+        line = line.strip()
+        if line.endswith('----'):
+            # just a header
+            continue
+
+        if not line:
+            # blank line --> field is done
+            if current_field:
+                # data structures need a copy
+                field_data.append(copy.copy(current_field))
+                current_field = None
+
+        if line.startswith('FIELD:'):
+            # new field
+            current_field = {}
+            fieldtag = line.split(':')[1].strip()
+            current_field['tag'] = fieldtag
+
+        elif line.startswith('INDC1:'):
+            indc1 = line.split(':')[1].strip()
+            if indc1 == 'blank':
+                indc1 = ' '
+            current_field['indicator_1'] = indc1
+
+        elif line.startswith('INDC2:'):
+            indc2 = line.split(':')[1].strip()
+            if indc2 == 'blank':
+                indc2 = ' '
+            current_field['indicator_2'] = indc2
+
+        elif line.startswith('FOR EACH:'):
+            # more complicated
+            eachsource = line.split(':')[1].split(' in ')[1]
+            current_field['foreach'] = {}
+            # leading whitespace now matters
+            foreach_indent = read_indent(indented_line)
+            fwdex = indx + 1 
+            # read ahead. The "while" will stop when it hits a blank line,
+            # and read_indent returns a -1
+            while foreach_indent < read_indent(defblocks['export_define'][fwdex]):
+                # we have read the indent, so strip it off
+                foreach_itemline = defblocks['export_define'][fwdex].strip()
+                # for next iteration test...
+                fwdex += 1
+
+                # save this content to its rightful home
+                if foreach_itemline.startswith('SUBFIELD:'):
+                    if 'subfields' not in current_field['foreach']:
+                        current_field['foreach']['subfields'] = []
+                    subfield_code = foreach_itemline.split(':')[1].strip()
+                    subfield_expr = defblocks['export_define'][fwdex + 1].strip()
+                    current_field['foreach']['subfields'].append({subfield_code: subfield_expr})
+
+                elif foreach_itemline.startswith('SORT BY:'):
+                    # we may one day want to support "sort by a, b" expressions...
+                    # so make this an array, also
+                    if 'sortby' not in current_field['foreach']:
+                        current_field['foreach']['sortby'] = []
+                    sortby_expr = foreach_itemline.split(':')[1].strip()
+                    current_field['foreach']['sortby'].append(sortby_expr)
+
+                elif foreach_itemline.startswith('DEMARC-WITH'):
+                    demarc_expr = foreach_itemline.split(':')[1].strip()
+                    current_field['foreach']['demarcator'] = demarc_expr
+
+        elif line.startswith('SUBFIELD:'):
+            if 'subfields' not in current_field:
+                current_field['subfields'] = []
+            subfield_code = line.split(':')[1].strip()
+            subfield_expr = defblocks['export_define'][indx + 1].strip()
+            current_field['subfields'].append({subfield_code: subfield_expr})
+
+    marcdefs['field_templates'] = field_data
+
+    return marcdefs
+
+
+def read_marcexpdef_file(marcexpdef_file):
+    '''This function reads the marcexport define file, sends the file's
+    content to `parse_marcexport_deflines`, and returns the resulting
+    operational datastructures. 
+    '''
+    if not os.path.exists(marcexpdef_file):
+        raise TypeException('Parameter `' + marcexpdef_file + '` does not exist.')
+    if not os.path.isfile(marcexpdef_file):
+        raise ValueException('Parameter `' + marcexpdef_file + '` is not a readable file.')
+
+    deflines_file = open(marcexpdef_file)
+    deflines = deflines_file.readlines()
+    deflines_file.close()
+
+    retval = parse_marcexport_deflines(deflines)
+
+    return retval
+
+
+
 
 
 # =============================================================================
 #
 # ================== EXPRESSION FUNCTIONS CALLABLE IN MARCEXPORT.DEFINE =======
 
-# and their helper functions
+# And their helper functions
+
+
+def normalize_date(dateval):
+    if not dateval:
+        return ''
+    dateval = str(dateval)
+    dateval = dateval.split('T')[0]
+    return dateval
 
 
 def biblio_name(person_name):
@@ -33,12 +249,13 @@ def release_decade(release_date):
     return decade_literal
 
     
-# accepts a comma separated list in string form, and a boolean
-# that, if set to true, will stipulate use of the Oxford comma.
-# Returns the list with leading and trailing whitespace stripped from 
-# list items, separated by commas, with " and " inserted in lieu of
-# the final separator.
+
 def pretty_comma_list(listexpr, oxford=False):
+    '''Accepts a comma separated list in string form, and a boolean
+    that, if set to True, will stipulate use of the Oxford comma.
+    Returns the list with leading and trailing whitespace stripped from 
+    list items, separated by commas, with " and " inserted in lieu of
+    the final separator.'''
 
     last_sep = ' and '
     if oxford:
@@ -108,36 +325,94 @@ def total_play_length(tracks):
 #
 # ================== SUBFIELD EXPRESSION PARSING FUNCTIONS ====================
 
+# This is a simplistic stack-based recursive descent parse with implicit
+# grammar for subfield expressions in marcexport.define. 
+# The "delims" structure is a stack which grows as new opening delimiters
+# occur, and shrinks as corresponding closing delimiters occur.
+#
+# In a subfield expression, quoted string literals are opaque objects: it
+# doesn't matter what characters they contain, except the occurrence of
+# the same quote character that begain the literal.
+#
+# The other kind of delimiter is the nestable structure token: (, [, {
+# that open a nested sequence, and the corresponding ), ], } delimiters.
+# As the name suggests, these kinds of delimiters can be meaningfully
+# nested
+#
+# The parse separates the expression into syntactilly significant 
+# character sequences, as noted in the `tokenize` function string.
 
-def closes_delim(delims, char):
+
+def closes_delim(delims, char, opaques=opaque_delims, nestables=nestable_delims):
     '''Returns True if char closes LAST value in delims'''
     if not delims:
-        # already closed (empty)
+        # Nothing to close
         return False
 
     # the last character in a delim sequence is looking for its closure
-    openchar = delims[-1]   
+    openchar = delims[-1]
 
     if openchar in opaques:
-        # we are in a string literal
+        # We are in a string literal. Nothing but the corresponding 
+        # close quote will have any effect.
         return (char == opaques[openchar])
     if openchar in nestables:
-        # nestable expression
-        return (char == nestables[openchar])
+        # We're in a nestable expression
+        if char == nestables[openchar]:
+            # It's the right one
+            return True
+        elif char in nestables.values():
+            # It's a wrong one. Invalid nesting!
+            errmsg = 'BAD SUBFIELD EXPR: closing character `' + char
+            errmsg += '` does not match opening character `' + openchar + '`.'
+            raise Exception(errmsg)
     else:
-        raise Exception('How did `' + current_delims[-1] + '` get into delims???')
+        # Neither opaque nor nestable. Fix the tokenize script
+        errmsg = 'CODE ERROR: invalid delimiter `' + delims[-1] + '`.'
+        errmsg += ' Probably in tokenize function.'
+        raise Exception(errmsg)
+
+    return False
 
 
-def opens_delim(delims, char):
-    if delims and delims[-1] in opaques:
-        # this is what "opaque" means. a quoted literal can contain anything
-        return False
-    else:
+def opens_delim(delims, char, opaques=opaque_delims, nestables=nestable_delims):
+    if not delims:
+        # any opening delim will start a block
         return char in opaques or char in nestables
 
+    if delims[-1] in opaques:
+        # We are in a string literal, so no delimiter can open a nested block. 
+        # This is what "opaque" means. A quoted literal can contain anything;
+        # opening delimiters are insignificant.
+        return False
+    elif delims[-1] in nestables:
+        # We're in a nested block. We can open either a string literal 
+        # or a nested block here.
+        return char in opaques or char in nestables
+    else:
+        # Neither opaque nor nestable. Fix the tokenize script
+        errmsg = 'CODE ERROR: invalid delimiter `' + delims[-1] + '`.'
+        errmsg += ' Probably in tokenize function.'
+        raise Exception(errmsg)
 
-def sweep(expr):
-    # essentially a tokenizing pass
+
+def append_normalized_block(block, blocks):
+    '''Normalizes whitespace; will not append a whitespace-only block.'''
+    if block.strip():
+        blocks.append(block.strip())
+
+
+def tokenize(expr, opaques=opaque_delims, nestables=nestable_delims):
+    '''This function returns the `expr` argument divided into a sequence of
+    syntactically significant blocks of characters. Block types are:
+     - string literals, explicitly quoted (treated as "opaque" to further parsing)
+     - opening and closing nestable structure tokens: (, [, {, ), ], }
+     - concatenation symbol: + with adjacent whitespace preserved
+     - function names, invoked at JSON --> MARC export time
+     - extracted property names, resolved at JSON --> MARC export time
+    Concatenating the blocks in this return value recreates the `expr`
+    parameter. This is a lossless transformation. 
+    '''
     top_blocks = []     # sequence of blocks
     current_block = ''
     current_delims = []
@@ -150,10 +425,10 @@ def sweep(expr):
             if char in opaques.values():
                 # append it. Quotes don't get their own block like nestables do
                 current_block += char
-                top_blocks.append(current_block)
+                append_normalized_block(current_block, top_blocks)
 
             elif char in nestables.values():
-                top_blocks.append(current_block)
+                append_normalized_block(current_block, top_blocks)
                 # closing char gets its own block
                 top_blocks.append(char)
 
@@ -164,8 +439,7 @@ def sweep(expr):
         elif opens_delim(current_delims, char):
 
             if char in nestables:
-                if current_block:
-                    top_blocks.append(current_block)
+                append_normalized_block(current_block, top_blocks)
                 # it gets its own block
                 top_blocks.append(char)
                 # reset
@@ -173,25 +447,30 @@ def sweep(expr):
                 current_delims.append(char)
 
             elif char in opaques:
-                if current_block:
-                    top_blocks.append(current_block)
-
-                # put the char at the lead of the new block
+                append_normalized_block(current_block, top_blocks)
+                # put the char at the start of the new block
                 current_block = ''
                 current_block += char
                 current_delims.append(char)
+
+        elif char == '+':
+            # give this a block of its own, but make no delim entry
+            # because this is a unary operator
+            append_normalized_block(current_block, top_blocks)
+            # normalize whitespace for unary
+            top_blocks.append(' + ')
+            current_block = ''
+
         else:
+            # non-delim, non-operator: content only:
             # neither opens nor closes
             current_block += char
 
     # flush accumulated content to return value
-    if current_block:
-        top_blocks.append(current_block)
+    append_normalized_block(current_block, top_blocks)
+
     return top_blocks
 
-# Constants for field parse operations
-opaques = {'"': '"', "'": "'"}
-nestables = {'(':')', '[':']', '{':'}'}
 
 
 
@@ -200,161 +479,95 @@ nestables = {'(':')', '[':']', '{':'}'}
 # ================== CORE FUNCTIONS FOR EXPORTING MARC RECORDS ================
 
 
-def abstract_tracks(tracks, subfield_pattern, demarcator):
-    '''from a JSON `tracks` node, assembles the MARC subfields list of 
-    individual track subfields in order
-    '''
-    for track in tracks:
-        pass
-
-
-
-
-
-def marc_field_from_values(jsonobj, field_pattern):
-    '''This function, following the field pattern from the
-    marcexport.define file, constructs the abstract (e.g. dict)
-    representation of MARC data.
-    '''
-    content = {}
-    in_subfield = None
-    for line in field_pattern:
-        if line.strip().startswith('FIELD:'):
-            in_subfield = None
-            content['tag'] = line.split(':')[1].strip()
-        elif line.strip().startswith('INDC1:'):
-            content['indicator_1'] = line.split(':')[1].strip()
-        elif line.strip().startswith('INDC2:'):
-            content['indicator_2'] = line.split(':')[1].strip()
-
-
-
-def scan_marcexport_lines(marclines):
-
-    marcfield_defs = []
-    block_indxs = {}
-    cur_block = None
-    for indx, line in enumerate(marclines):
-        if line.strip().endswith('--------'):
-            line = line.strip()
-            blockname = line[:line.find('----')]
-
-            if cur_block:
-                # close out old block
-                block_indxs[cur_block].append(indx-1)
-
-            # start new block
-            cur_block = blockname
-            block_indxs[blockname] = []
-            block_indxs[blockname].append(indx)
-
-    block_indxs[cur_block].append(len(marclines) - 1)
-
-    return block_indxs
-
-
-
-def extract_defined_properties(jsonobj, extractlines):
-    '''`jsonobj` is a JSON album record (logically the same as "album_json"
-    in marcexport.define).
-    `extractlines` is the content of the "JSON EXTRACTED PROPERTIES" block
-    in marcexport.define. Blank lines are not necessarily removed.
-    Returns a hash of properties, named according to the instructions
-    found in the block.
-    '''
-    album_json = jsonobj
+def compute_extracts(extract_block, jsonobj):
+    print('COMPUTING EXTRACTS.')
+    print(extract_block)
+    print
     retval = {}
-    for line in extractlines:
-        line = line.strip()
-        if not line:
+    album_json = jsonobj
+    for propname in extract_block:
+        if not propname:
+            # empty key got in. gotta fix the parse
             continue
-        if '=' in line:
-            propname, expr = map(str.strip, line.split('='))
-            retval[propname] = eval(expr)
+        print(propname + ':')
+        print(extract_block[propname])
+        extracted_val = eval(extract_block[propname])
+        print(extracted_val)
+        retval[propname] = extracted_val
     return retval
 
 
-def compute_subfield_val(expr, opaques, nestables, extracts, functions):
+
+def compute_subfield_expr(expr, json_extracts, defined_functions, defined_parameters, opaques=opaque_delims, nestables=nestable_delims):
     retval = expr
 
-    stack = []
-
     # this is a parse 
-    tokens = sweep(expr)
-    for token in tokens:
+    tokens = tokenize(expr)
+    for indx, token in enumerate(tokens):
         if token[0] in opaques:
             # this is a string literal. Don't mess with it.
             continue
 
-        for extract in extracts:
-           
- 
+        # replace reference to extract name with actual value extracted from JSON.
+        # ensure that the result is quotes as a literal.
+        for extract in json_extracts:
+            if extract in token:
+                print('token before json extract fix: ' + token)
+                extractval = json_extracts[extract]
+                if isinstance(extractval, str):
+                    # direct substitution
+                    token = token.replace(extract, '"' + extractval + '"')
+                print('token after json extract fix: ' + token)
+                print
 
-    for key in extracts:
-        if key in expr: 
-            expr = expr.replace(key, '"' + str(extracts[key]) + '"')
-        try:
-            retval = eval(expr)
-        except Exception as e:
-            print(e)
-        
+        for param in defined_parameters:
+            if param in token:
+                print('token before param fix: ' + token)
+                paramval = defined_parameters[param]
+                if isinstance(paramval, str):
+                    # direct substitution
+                    token = token.replace(param, '"' + paramval + '"')
+                print('token after param fix: ' + token)
+                print
+
+
+        # sanity on function call in expr
+        if token == '(':
+            # this opens a function. What function?
+            funcname = tokens[indx - 1]
+            if funcname not in defined_functions:
+                print('function name `' + funcname + '` not in functions in MARC export definition.')
+
+    # concat tokens into content
+    evaluable = ''.join(tokens)
+
+    print('evaluating:')
+    print(evaluable)
+
+                    
+    retval = evaluable
+    # retval = eval(evaluable)
+    print('evaluated to:')
+    print(retval)
+
     return retval
-
-def assemble_export_field_info(exportfieldlines, extracted_properties):
-
-    field_data = [] # list of MARC field data assembled according to definitions
-    current_field = None
-    for indx, line in enumerate(exportfieldlines):
-        line = line.rstrip()
-        strippedline = line.strip()
-        if line.endswith('----'):
-            continue
-
-        if not strippedline:
-            # blank line --> field is done
-            if current_field:
-                field_data.append(current_field)
-                current_field = None
-
-        if strippedline.startswith('FIELD:'):
-            # new field
-            current_field = {}
-            fieldtag = strippedline.split(':')[1].strip()
-            current_field['tag'] = fieldtag
-
-        elif strippedline.startswith('INDC1:'):
-            indc1 = strippedline.split(':')[1].strip()
-            if indc1 == 'blank':
-                indc1 = ' '
-            current_field['indc1'] = indc1
-
-        elif strippedline.startswith('INDC2:'):
-            indc2 = strippedline.split(':')[1].strip()
-            if indc2 == 'blank':
-                indc2 = ' '
-            current_field['indc2'] = indc2
-
-        elif strippedline.startswith('SUBFIELD:'):
-            if 'subfields' not in current_field:
-                current_field['subfields'] = []
-            subfield_code = strippedline.split(':')[1].strip()
-            subfield_content = exportfieldlines[indx + 1].strip()
-            subfield_content = compute_subfield_val(subfield_content, extracted_properties)
-            current_field['subfields'].append({subfield_code: subfield_content})
-
-    return field_data
-
-
-define_blocks = {}
-
-extracted_properties = {}
-
 
 
 
 usage = '''
 USAGE: marc-from-def-and-json <marc def file> <json_file> <collection name> <collection host>
 '''
+
+# The sequence of operation in batch mode is:
+# - parse the marc define file into operational data structures
+# - parse the json source
+# - extract the JSON properties
+# - for each field in the 'field_templates' datastructure,:
+#       - copy the field datastructure
+#       - evaluate the subfield content for each field, substituting the
+#           final string value for the expr
+
+
 
 import sys
 import os, os.path
@@ -389,12 +602,26 @@ if not os.path.isfile(json_filename):
     print(usage)
     exit(1)
 
-# still here
-marclines = None
-with open(def_filename) as marcdef_file: 
-    marclines = marcdef_file.readlines()
-    marcdef_file.close()
+print('OK STILL HERE')
 
+# still here
+export_definitions = read_marcexpdef_file(def_filename)
+
+print('EXPORT DEFINITIONS PARSED SUCCESSFULLY')
+
+print
+print('What do we have?')
+for deftype in export_definitions:
+    print(deftype)
+    print(str(len(export_definitions[deftype])) + ' data items:')
+    if deftype != 'field_templates':
+        for item in export_definitions[deftype]:
+            print(item)
+
+    print
+
+
+print
 jsonsource = None
 with open(json_filename) as json_file:
     jsonsource = json_file.read()
@@ -404,60 +631,41 @@ jsonobj = json.loads(jsonsource)
 
 print('JSON parsed successfully.')
 
-
-# testdurs = [
-#     364.61401360544215,
-#     400.06068027210887,
-#     308.56820861678005,
-#     509.6957823129252,
-# ]
-
-# print
-# print('Testing durations:')
-# for dur in testdurs:
-#     print(dur)
-#     print(h_m_s(dur))
-
-# print
-# print('Testing album duration:')
-# tracks = jsonobj['album']['tracks'] 
-# print(type(tracks))
-
-# print('total_play_length(tracks)' + str(total_play_length(tracks)))
-
-define_indxs = scan_marcexport_lines(marclines)
 print
-print('define_indexs:')
-print(define_indxs)
+print('BLOCKS:')
+for key in export_definitions:
+    print(key)
 
-# define_blocks is source text from the marcexport.define file
-define_blocks = {}
-for block in define_indxs:
-    print(block)
-    print(define_indxs[block])
-    startswith = define_indxs[block][0]
-    endsbefore = define_indxs[block][1]
-    define_blocks[block] = marclines[startswith:endsbefore]
+extracts_structure = export_definitions['json_value_exprs']
+functions_structure = export_definitions['functions']
+extracted_properties = compute_extracts(extracts_structure, jsonobj)
+# for propname in json_properties:
+#     print(propname + ': ' + str(json_properties[propname]))
+print('property values successfully extracted from JSON.')
 
-# for blockname in define_blocks:
-#     print
-#     print(blockname)
-#     for line in define_blocks[blockname]:
-#         print(line.rstrip())
-#     print
+print
+print('EXTRACTED PROPERTIES:')
 
-# extract properties from JSON
-extractlines = define_blocks['JSON EXTRACTED PROPERTIES']
-extracted_properties = extract_defined_properties(jsonobj, extractlines)
-for prop in extracted_properties:
+for property in extracted_properties:
     print
-    print(prop + ': ' + str(extracted_properties[prop]))
+    print(property)
+    print(extracted_properties[property])
 
-# marshal MARC record data
-exportfieldlines = define_blocks['EXPORT DEFINE']
-export_field_info = assemble_export_field_info(exportfieldlines, extracted_properties)
+print
 
-for field in export_field_info:
-    print
-    print(field)
+
+# print('FIELD DATA:')
+# for marcfield in export_definitions['field_templates']:
+#     print
+#     print('tag: ' + marcfield['tag'])
+#     print('ind_1: ' + marcfield['indicator_1'])
+#     print('ind_2: ' + marcfield['indicator_2'])
+#     for subfield in marcfield['subfields']:
+#         print(subfield)
+#         subcode = subfield.keys()[0]
+#         subval = subfield[subfield.keys()[0]]
+#         print('  ' + subcode + ': ' + subval)
+#         sub_eval = compute_subfield_expr(subval, extracted_properties, functions_structure)
+#         print('  ' + subcode + ': ' + sub_eval)
+
 

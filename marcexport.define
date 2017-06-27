@@ -128,9 +128,9 @@ FIELD: 505
 INDC1: 0
 INDC2: 0
     FOR EACH: track in album_tracks
-        SUBFIELD: t
+        EACH-SUBFIELD: t
             track_title
-        SUBFIELD: g
+        EACH-SUBFIELD: g
             render_duration(track_duration)
         SORT BY: track_position
         DEMARC-WITH: '--'

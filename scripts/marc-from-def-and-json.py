@@ -40,16 +40,20 @@ def read_indent(line):
 
 
 def parse_marcexport_deflines(deflines):
-    '''This function reads a sequence of text lines that have been read from
-    a MARC export definition.
-    From those it parses source content for the different
+    '''This function turns the marcexport define content into datastructures.
+
+    It reads a map of of text line blocks that have been read from
+    a MARC export definition. The names of the blocks correspond to the
+    purpose of the information in the blocks.
+
+    From those, it parses source content for the different
     categories of information. (It ignores "DESCRIPTION", which is
     non-machine-parseable documentation for humans.)
     
     From the content, it parses a dictionary/map/hash/object of marcexport
     datastructures:
         - 'known_parameters', required parameters
-        - 'usable_functions', function names anb brief signature/descriptions
+        - 'functions', function names anb brief signature/descriptions
         - 'json_value_exprs', named expressions for pulling values from a
             JSON instance.
         - 'field_templates', an ordered sequence of data structures listing
@@ -76,19 +80,25 @@ def parse_marcexport_deflines(deflines):
     print(str(len(defblocks)) + ' blocks read in.')
     for block in defblocks:
         print(block + ' (' + str(len(defblocks[block])) + ' lines)')
+    print
 
-    # now evaluate marcexport define content as required
+    # now evaluate marcexport define DATASTRUCTURE content as required
     marcdefs = {}
 
-    # sanity check and note: parameters
-    paramnames = []
 
+    # KNOWN PARAMETERS:
+    # what needs to be passed in for some things to work -- 
+    # in codebase, some are environment variables;
+    # at command line, they must be explicitly passed.
+    paramnames = []
     for line in defblocks['known_parameters']:
         if line.strip():
             paramnames.append(line.strip())
 
     marcdefs['known_parameters'] = paramnames
 
+
+    # FUNCTIONS:
     # function names and expressions
     marcdefs['functions'] = {}
     for line in defblocks['functions']:
@@ -98,6 +108,8 @@ def parse_marcexport_deflines(deflines):
             funcname = line.split('(')[0]
             marcdefs['functions'][funcname] = line
 
+
+    # EXTRACTORS:
     # expressions for pulling data out of JSON instances
     marcdefs['json_value_exprs'] = {}
     for line in defblocks['json_extracted_properties']:
@@ -107,16 +119,25 @@ def parse_marcexport_deflines(deflines):
         marcdefs['json_value_exprs'][parts[0].strip()] = ('='.join(parts[1:])).strip()
 
 
+    # TEMPLATES: 
     # ordered sequence of templates for MARC fields
     marcdefs['field_templates'] = None
 
     field_data = [] # list of MARC field data assembled according to definitions
     current_field = None
 
-    for indx, line in enumerate(defblocks['export_define']):
+    # using a while loop to have control over indx for readaheads
+    indx = -1
+    while indx < len(defblocks['export_define']) - 1:
 
+        indx += 1
+        line = defblocks['export_define'][indx]
+
+        # indented_line is for processing indents. Otherwise, just strip
+        # the line completely.
         indented_line = line.rstrip()
         line = line.strip()
+
         if line.endswith('----'):
             # just a header
             continue
@@ -148,39 +169,31 @@ def parse_marcexport_deflines(deflines):
 
         elif line.startswith('FOR EACH:'):
             # more complicated
-            eachsource = line.split(':')[1].split(' in ')[1]
+            foreachexpr = line.split(':')[1].split(' in ')
             current_field['foreach'] = {}
-            # leading whitespace now matters
-            foreach_indent = read_indent(indented_line)
-            fwdex = indx + 1 
-            # read ahead. The "while" will stop when it hits a blank line,
-            # and read_indent returns a -1
-            while foreach_indent < read_indent(defblocks['export_define'][fwdex]):
-                # we have read the indent, so strip it off
-                foreach_itemline = defblocks['export_define'][fwdex].strip()
-                # for next iteration test...
-                fwdex += 1
+            current_field['foreach']['eachitem'] = foreachexpr[0]
+            current_field['foreach']['itemsource'] = foreachexpr[1]
 
-                # save this content to its rightful home
-                if foreach_itemline.startswith('SUBFIELD:'):
-                    if 'subfields' not in current_field['foreach']:
-                        current_field['foreach']['subfields'] = []
-                    subfield_code = foreach_itemline.split(':')[1].strip()
-                    subfield_expr = defblocks['export_define'][fwdex + 1].strip()
-                    current_field['foreach']['subfields'].append({subfield_code: subfield_expr})
+        elif line.startswith('EACH-SUBFIELD:'):
+            if 'subfields' not in current_field['foreach']:
+                current_field['foreach']['subfields'] = []
+            eachsub_code = line.split(':')[1].strip()
+            eachsub_expr = defblocks['export_define'][indx + 1].strip()
+            current_field['foreach']['subfields'].append({eachsub_code: eachsub_expr})
 
-                elif foreach_itemline.startswith('SORT BY:'):
-                    # we may one day want to support "sort by a, b" expressions...
-                    # so make this an array, also
-                    if 'sortby' not in current_field['foreach']:
-                        current_field['foreach']['sortby'] = []
-                    sortby_expr = foreach_itemline.split(':')[1].strip()
-                    current_field['foreach']['sortby'].append(sortby_expr)
+        elif line.startswith('SORT BY:'):
+            # we may one day want to support "sort by a, b" expressions...
+            # so make this an array, also
+            if 'sortby' not in current_field['foreach']:
+                current_field['foreach']['sortby'] = []
+            sortby_expr = line.split(':')[1].strip()
+            current_field['foreach']['sortby'].append(sortby_expr)
 
-                elif foreach_itemline.startswith('DEMARC-WITH'):
-                    demarc_expr = foreach_itemline.split(':')[1].strip()
-                    current_field['foreach']['demarcator'] = demarc_expr
+        elif line.startswith('DEMARC-WITH:'):
+            demarc_expr = line.split(':')[1].strip()
+            current_field['foreach']['demarcator'] = demarc_expr
 
+        # we do not want to grab subfields that are within a 
         elif line.startswith('SUBFIELD:'):
             if 'subfields' not in current_field:
                 current_field['subfields'] = []
@@ -474,6 +487,8 @@ def tokenize(expr, opaques=opaque_delims, nestables=nestable_delims):
 
 
 
+
+
 # =============================================================================
 #
 # ================== CORE FUNCTIONS FOR EXPORTING MARC RECORDS ================
@@ -497,8 +512,25 @@ def compute_extracts(extract_block, jsonobj):
     return retval
 
 
+def compute_foreach(foreach_template, json_extracts,
+    defined_functions, defined_parameters, 
+    opaques=opaque_delims, nestables=nestable_delims):
+    '''This function accepts a template object for a FOR EACH: directive
+    from a marcexport define. 
 
-def compute_subfield_expr(expr, json_extracts, defined_functions, defined_parameters, opaques=opaque_delims, nestables=nestable_delims):
+    The template object has the structure:
+        {
+            'eachitem': <str: json node name>,                  for tracks, 'track'
+            'itemsource': <array of json nodes with that name>,
+            'subfields': <array of single-val {code: expr} dicts>,
+            'sortby': <array of property exprs>
+            'demarcator': a string to be inserted between items
+        }
+    '''
+
+
+def compute_subfield_expr(expr, json_extracts, defined_functions, defined_parameters,
+    opaques=opaque_delims, nestables=nestable_delims):
     retval = expr
 
     # this is a parse 
@@ -512,28 +544,28 @@ def compute_subfield_expr(expr, json_extracts, defined_functions, defined_parame
         # ensure that the result is quotes as a literal.
         for extract in json_extracts:
             if extract in token:
-                print('token before json extract fix: ' + token)
+                # print('token before json extract fix: ' + token)
                 extractval = json_extracts[extract]
                 if isinstance(extractval, str):
                     # direct substitution
                     token = token.replace(extract, '"' + extractval + '"')
-                print('token after json extract fix: ' + token)
-                print
+                # print('token after json extract fix: ' + token)
+                # print
 
         for param in defined_parameters:
             if param in token:
-                print('token before param fix: ' + token)
+                # print('token before param fix: ' + token)
                 paramval = defined_parameters[param]
                 if isinstance(paramval, str):
                     # direct substitution
                     token = token.replace(param, '"' + paramval + '"')
-                print('token after param fix: ' + token)
-                print
-
+                # print('token after param fix: ' + token)
+                # print
 
         # sanity on function call in expr
         if token == '(':
-            # this opens a function. What function?
+            # this opens a function.
+            # What function name was the previous token?
             funcname = tokens[indx - 1]
             if funcname not in defined_functions:
                 print('function name `' + funcname + '` not in functions in MARC export definition.')
@@ -541,14 +573,14 @@ def compute_subfield_expr(expr, json_extracts, defined_functions, defined_parame
     # concat tokens into content
     evaluable = ''.join(tokens)
 
-    print('evaluating:')
-    print(evaluable)
+    # print('evaluating:')
+    # print(evaluable)
 
                     
     retval = evaluable
     # retval = eval(evaluable)
-    print('evaluated to:')
-    print(retval)
+    # print('evaluated to:')
+    # print(retval)
 
     return retval
 
@@ -636,6 +668,7 @@ print('BLOCKS:')
 for key in export_definitions:
     print(key)
 
+parameters_structure = export_definitions['known_parameters']
 extracts_structure = export_definitions['json_value_exprs']
 functions_structure = export_definitions['functions']
 extracted_properties = compute_extracts(extracts_structure, jsonobj)
@@ -654,18 +687,38 @@ for property in extracted_properties:
 print
 
 
-# print('FIELD DATA:')
-# for marcfield in export_definitions['field_templates']:
-#     print
-#     print('tag: ' + marcfield['tag'])
-#     print('ind_1: ' + marcfield['indicator_1'])
-#     print('ind_2: ' + marcfield['indicator_2'])
-#     for subfield in marcfield['subfields']:
-#         print(subfield)
-#         subcode = subfield.keys()[0]
-#         subval = subfield[subfield.keys()[0]]
-#         print('  ' + subcode + ': ' + subval)
-#         sub_eval = compute_subfield_expr(subval, extracted_properties, functions_structure)
-#         print('  ' + subcode + ': ' + sub_eval)
+print('FIELD DATA:')
+for marcfield in export_definitions['field_templates']:
+    print
+    print('tag: ' + marcfield['tag'])
+    print('ind_1: ' + marcfield['indicator_1'])
+    print('ind_2: ' + marcfield['indicator_2'])
+    if 'subfields' in marcfield:
+        for subfield in marcfield['subfields']:
+            print(subfield)
+            subcode = subfield.keys()[0]
+            subval = subfield[subfield.keys()[0]]
+            print('  ' + subcode + ': ' + subval)
+            sub_eval = compute_subfield_expr(subval, extracted_properties, functions_structure, parameters_structure)
+            print('  ' + subcode + ': ' + sub_eval)
 
-
+    # current_field['foreach']['eachitem'] = foreachexpr[0]
+    # current_field['foreach']['itemsource'] = foreachexpr[1]
+    # current_field['foreach']['sortby'].append(sortby_expr)
+    # current_field['foreach']['demarcator'] = demarc_expr
+    if 'foreach' in marcfield:
+        print('FOREACH YES')
+        if 'eachitem' in marcfield['foreach']:
+            print('  foreach ' + marcfield['foreach']['eachitem']) 
+        if 'itemsource' in marcfield['foreach']:
+            print('  in ' + marcfield['foreach']['itemsource'] + ':')
+        if 'subfields' in marcfield['foreach']:
+            print('  SUBFIELDS YES')
+            for subfield in marcfield['foreach']['subfields']:
+                print('    ' + str(subfield))
+        if 'sortby' in marcfield['foreach']:
+            print('  SORTBY YES')
+            print('    ' + str(marcfield['foreach']['sortby']))
+        if 'demarcator' in marcfield['foreach']:
+            print(' DEMARCATOR YES')
+            print('    ' + marcfield['foreach']['demarcator'])

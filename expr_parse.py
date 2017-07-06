@@ -117,7 +117,7 @@ def sweep(expr):
 
         elif char == '+':
             # give this a block of its own, but make no delim entry
-            # because this is a unary operator
+            # because this is an operator
             if current_block:
                 top_blocks.append(current_block)
             top_blocks.append(char)

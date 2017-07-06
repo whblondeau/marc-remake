@@ -468,9 +468,9 @@ def tokenize(expr, opaques=opaque_delims, nestables=nestable_delims):
 
         elif char == '+':
             # give this a block of its own, but make no delim entry
-            # because this is a unary operator
+            # because this is an operator
             append_normalized_block(current_block, top_blocks)
-            # normalize whitespace for unary
+            # normalize whitespace for operator
             top_blocks.append(' + ')
             current_block = ''
 
@@ -520,13 +520,31 @@ def compute_foreach(foreach_template, json_extracts,
 
     The template object has the structure:
         {
-            'eachitem': <str: json node name>,                  for tracks, 'track'
+            'eachitem': <str: json node name>,                  //for tracks, 'track'
             'itemsource': <array of json nodes with that name>,
             'subfields': <array of single-val {code: expr} dicts>,
-            'sortby': <array of property exprs>
+            'sortby': <array of property exprs>,
             'demarcator': a string to be inserted between items
         }
     '''
+    # convenience variables for template expressions
+    item = foreach_template['eachitem']
+    sourcenode = foreach_template['itemsource']
+    itemsubfields = foreach_template['subfields']
+    itemsortkey = foreach_template['sortby']
+    demarcator = foreach_template['demarcator']
+
+    # array to hold items as they are composed
+    composed_items = []
+
+    # apply extraction
+    for item in sourcenode:
+        itemcontent = {}
+        itemcontent['subfields'] = itemsubfields
+        itemcontent['sortkey'] = foreach_template['sortby']
+        composed_items.append(extracts)
+
+
 
 
 def compute_subfield_expr(expr, json_extracts, defined_functions, defined_parameters,

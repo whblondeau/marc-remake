@@ -176,7 +176,7 @@ FIELD: 856
 INDC1: 4
 INDC2: 0
     SUBFIELD: u
-        'collection_host + '/albums/' + album_id]
+        'collection_host + '/albums/' + album_id
     SUBFIELD: z
         'Click here to access this electronic item'
 

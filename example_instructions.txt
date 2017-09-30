@@ -1,0 +1,3 @@
+TO RUN THE EXAMPLE:
+
+scripts/marc-from-def-and-json marcexport.define jsons/mischa-lively-album.json org.nashville.library.boombox http://boombox.library.nashville.org

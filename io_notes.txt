@@ -1,0 +1,17 @@
+
+parse-marcout.py <marcout-export-defn>
+    |
+    |__<extract-structure> (data structures designed to extract MARC content from marc-source JSON for export) 
+    
+
+export-marc.py --marcout <marcout-structure> --marcsource <marc-source>
+    |
+    |_ <marc-data>
+    
+render-marc-text  <marc-data>
+    |
+    |_ same as output of, e.g., "https://playback-api.spl.org/public/albums/?collection=org.spl.playback&req_content_type=marc"
+    
+    
+    
+    

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+
 # so "/" vs "//" integer division will behave the same 
 # in python 2 and 3.
 # imports from __future__ must be at the head of the file,
@@ -13,220 +14,20 @@ opaque_delims = {'"': '"', "'": "'"}
 nestable_delims = {'(':')', '[':']', '{':'}'}
 
 
-
 # =============================================================================
 #
-# ================== GENERAL UTILITIES ========================================
+# ================== UTILITY FUNCTIONS ========================================
 
-
-def read_indent(line):
-    indx = -1
-    if not line.strip():
-        return indx
-
-    for char in line:
-        indx += 1
-        if char.strip():
-            return indx
-
-# def compose_multiple_sublistings(content_nodes, listing_subfields):
-#     for 
-
-
-
-# =============================================================================
-#
-# ================== PARSING MARCEXPORT.DEFINE INTO A DATA STRUCTURE ==========
-
-
-def parse_marcexport_deflines(deflines):
-    '''This function turns the marcexport define content into datastructures.
-
-    It reads a map of of text line blocks that have been read from
-    a MARC export definition. The names of the blocks correspond to the
-    purpose of the information in the blocks.
-
-    From those, it parses source content for the different
-    categories of information. (It ignores "DESCRIPTION", which is
-    non-machine-parseable documentation for humans.)
-    
-    From the content, it parses a dictionary/map/hash/object of marcexport
-    datastructures:
-        - 'known_parameters', required parameters
-        - 'functions', function names anb brief signature/descriptions
-        - 'json_value_exprs', named expressions for pulling values from a
-            JSON instance.
-        - 'field_templates', an ordered sequence of data structures listing
-            desired fixed values and extractiono expression for MARC fields.
-            This list of templates thus controls field order, subfield order,
-            and instructions for pulling data from the expected JSON instance.
-
-    This marcexport datastructures dictionary/map/hash/object is returned.
+def evaluate_parameter(param):
+    '''if the parameter is a filename, read the file and return its content.
+    Otherwise, return the parameter unaltered.
     '''
-    defblocks = {}
-    current_blockname = None
-
-    for line in deflines:
-        if line.strip().endswith('--------'):
-            line = line.strip()
-            current_blockname = line[:line.find('----')]
-            current_blockname = current_blockname.lower().replace(' ', '_')
-            defblocks[current_blockname] = []
-
-        else:
-            if current_blockname:
-                defblocks[current_blockname].append(line.strip())
-
-    print(str(len(defblocks)) + ' blocks read in.')
-    for block in defblocks:
-        print(block + ' (' + str(len(defblocks[block])) + ' lines)')
-    print
-
-    # now evaluate marcexport define DATASTRUCTURE content as required
-    marcdefs = {}
-
-
-    # KNOWN PARAMETERS:
-    # what needs to be passed in for some things to work -- 
-    # in codebase, some are environment variables;
-    # at command line, they must be explicitly passed.
-    paramnames = []
-    for line in defblocks['known_parameters']:
-        if line.strip():
-            paramnames.append(line.strip())
-
-    marcdefs['known_parameters'] = paramnames
-
-
-    # FUNCTIONS:
-    # function names and expressions
-    marcdefs['functions'] = {}
-    for line in defblocks['functions']:
-        line = line.strip()
-        if line:
-            # extract the function name
-            funcname = line.split('(')[0]
-            marcdefs['functions'][funcname] = line
-
-
-    # EXTRACTORS:
-    # expressions for pulling data out of JSON instances
-    marcdefs['json_value_exprs'] = {}
-    for line in defblocks['json_extracted_properties']:
-        line = line.strip()
-        parts = line.split('=')
-        # someone might put some equals signs in the expr - condition or something
-        marcdefs['json_value_exprs'][parts[0].strip()] = ('='.join(parts[1:])).strip()
-
-
-    # TEMPLATES: 
-    # ordered sequence of templates for MARC fields
-    marcdefs['field_templates'] = None
-
-    field_data = [] # list of MARC field data assembled according to definitions
-    current_field = None
-
-    # using a while loop to have control over indx for readaheads
-    indx = -1
-    while indx < len(defblocks['export_define']) - 1:
-
-        indx += 1
-        line = defblocks['export_define'][indx]
-
-        # indented_line is for processing indents. Otherwise, just strip
-        # the line completely.
-        indented_line = line.rstrip()
-        line = line.strip()
-
-        if line.endswith('----'):
-            # just a header
-            continue
-
-        if not line:
-            # blank line --> field is done
-            if current_field:
-                # data structures need a copy
-                field_data.append(copy.copy(current_field))
-                current_field = None
-
-        if line.startswith('FIELD:'):
-            # new field
-            current_field = {}
-            fieldtag = line.split(':')[1].strip()
-            current_field['tag'] = fieldtag
-
-        elif line.startswith('INDC1:'):
-            indc1 = line.split(':')[1].strip()
-            if indc1 == 'blank':
-                indc1 = ' '
-            current_field['indicator_1'] = indc1
-
-        elif line.startswith('INDC2:'):
-            indc2 = line.split(':')[1].strip()
-            if indc2 == 'blank':
-                indc2 = ' '
-            current_field['indicator_2'] = indc2
-
-        elif line.startswith('FOR EACH:'):
-            # more complicated
-            foreachexpr = line.split(':')[1].split(' in ')
-            current_field['foreach'] = {}
-            current_field['foreach']['eachitem'] = foreachexpr[0]
-            current_field['foreach']['itemsource'] = foreachexpr[1]
-
-        elif line.startswith('EACH-SUBFIELD:'):
-            if 'subfields' not in current_field['foreach']:
-                current_field['foreach']['subfields'] = []
-            eachsub_code = line.split(':')[1].strip()
-            eachsub_expr = defblocks['export_define'][indx + 1].strip()
-            current_field['foreach']['subfields'].append({eachsub_code: eachsub_expr})
-
-        elif line.startswith('SORT BY:'):
-            # we may one day want to support "sort by a, b" expressions...
-            # so make this an array, also
-            if 'sortby' not in current_field['foreach']:
-                current_field['foreach']['sortby'] = []
-            sortby_expr = line.split(':')[1].strip()
-            current_field['foreach']['sortby'].append(sortby_expr)
-
-        elif line.startswith('DEMARC-WITH:'):
-            demarc_expr = line.split(':')[1].strip()
-            current_field['foreach']['demarcator'] = demarc_expr
-
-        # we do not want to grab subfields that are within a 
-        elif line.startswith('SUBFIELD:'):
-            if 'subfields' not in current_field:
-                current_field['subfields'] = []
-            subfield_code = line.split(':')[1].strip()
-            subfield_expr = defblocks['export_define'][indx + 1].strip()
-            current_field['subfields'].append({subfield_code: subfield_expr})
-
-    marcdefs['field_templates'] = field_data
-
-    return marcdefs
-
-
-def read_marcexpdef_file(marcexpdef_file):
-    '''This function reads the marcexport define file, sends the file's
-    content to `parse_marcexport_deflines`, and returns the resulting
-    operational datastructures. 
-    '''
-    if not os.path.exists(marcexpdef_file):
-        raise TypeException('Parameter `' + marcexpdef_file + '` does not exist.')
-    if not os.path.isfile(marcexpdef_file):
-        raise ValueException('Parameter `' + marcexpdef_file + '` is not a readable file.')
-
-    deflines_file = open(marcexpdef_file)
-    deflines = deflines_file.readlines()
-    deflines_file.close()
-
-    retval = parse_marcexport_deflines(deflines)
-
+    retval = param
+    if os.path.isfile(param):
+        value_file = open(param)
+        retval = value_file.read()
+        value_file.close()
     return retval
-
-
-
-
 
 # =============================================================================
 #
@@ -321,6 +122,10 @@ def h_m_s(duration_in_float_seconds):
 
 
 def render_duration(duration_in_float_seconds):
+    '''Wrapper function that coerces representation to float
+    (because JSON might wrap value in quotes) and rounds it to
+    standard hours, minutes, seconds representation.
+    '''
     return '(' + h_m_s(duration_in_float_seconds) + ')'
 
 
@@ -337,6 +142,12 @@ def total_play_length(tracks):
 # =============================================================================
 #
 # ================== SUBFIELD EXPRESSION PARSING FUNCTIONS ====================
+
+# In MARC fields, the "tag", "indicator 1", and "indicator 2" values are
+# fixed; their values are defined in the MARCout export definition.
+#
+# Subfield content, on the other hand, often includes values extracted from 
+# the album JSON
 
 # This is a simplistic stack-based recursive descent parse with implicit
 # grammar for subfield expressions in marcexport.define. 
@@ -410,19 +221,22 @@ def opens_delim(delims, char, opaques=opaque_delims, nestables=nestable_delims):
 
 
 def append_normalized_block(block, blocks):
-    '''Normalizes whitespace; will not append a whitespace-only block.'''
+    '''Strips leading & trailing whitespace; will not append a whitespace-only block.'''
     if block.strip():
         blocks.append(block.strip())
 
 
 def tokenize(expr, opaques=opaque_delims, nestables=nestable_delims):
     '''This function returns the `expr` argument divided into a sequence of
-    syntactically significant blocks of characters. Block types are:
+    syntactically significant blocks of characters.
+
+    Block types are:
      - string literals, explicitly quoted (treated as "opaque" to further parsing)
      - opening and closing nestable structure tokens: (, [, {, ), ], }
      - concatenation symbol: + with adjacent whitespace preserved
      - function names, invoked at JSON --> MARC export time
      - extracted property names, resolved at JSON --> MARC export time
+
     Concatenating the blocks in this return value recreates the `expr`
     parameter. This is a lossless transformation. 
     '''
@@ -488,26 +302,25 @@ def tokenize(expr, opaques=opaque_delims, nestables=nestable_delims):
 
 
 
-
 # =============================================================================
 #
 # ================== CORE FUNCTIONS FOR EXPORTING MARC RECORDS ================
 
 
 def compute_extracts(extract_block, jsonobj):
-    print('COMPUTING EXTRACTS.')
-    print(extract_block)
-    print
+    # print('COMPUTING EXTRACTS.')
+    # print(extract_block)
+    # print
     retval = {}
     album_json = jsonobj
     for propname in extract_block:
         if not propname:
             # empty key got in. gotta fix the parse
             continue
-        print(propname + ':')
-        print(extract_block[propname])
+        # print(propname + ':')
+        # print(extract_block[propname])
         extracted_val = eval(extract_block[propname])
-        print(extracted_val)
+        # print(extracted_val)
         retval[propname] = extracted_val
     return retval
 
@@ -603,19 +416,51 @@ def compute_subfield_expr(expr, json_extracts, defined_functions, defined_parame
     return retval
 
 
+# =============================================================================
+#
+# ================== CONSTANTS ================================================
 
-usage = '''
-USAGE: marc-from-def-and-json <marc def file> <json_file> <collection name> <collection host>
+
+
+usage = '''export-marc.py <marcout-defn-structure> <record-to-export>
+    <collection_ns> <collection_hostname> [--verbose]
+
+PARAMETERS:
+
+    marcout-defn-structure: 
+        The serialized datastructure emitted by the MARCout parse.
+
+    record-to-export:
+        A JSON representation of the album being exported.
+
+    collection_ns:
+        The Rabble-style namespace for the collection to which the record
+        belongs. Needed for certain MARC records; not available in JSON.
+
+    collection_hostname:
+        The official URL at which the collection is published. Needed for
+        certain MARC records; not available in JSON.
+
+    --verbose: 
+        Human-friendly output. Not suitable for command line piping.
+
+RETURNS:
+    A serialized data structure representing a MARC record:
+
+        of the form defined in <marcout-defn-structure>;
+
+        with record-specific content extracted from <record-to-export>;
+
+        with additional content from <collection_ns> and <collection_hostname>,
+            as required.
+
 '''
 
-# The sequence of operation in batch mode is:
-# - parse the marc define file into operational data structures
-# - parse the json source
-# - extract the JSON properties
-# - for each field in the 'field_templates' datastructure,:
-#       - copy the field datastructure
-#       - evaluate the subfield content for each field, substituting the
-#           final string value for the expr
+
+
+# =============================================================================
+#
+# ================== EXECUTE SCRIPT ===========================================
 
 
 
@@ -631,112 +476,66 @@ if '--help' in sys.argv:
 call_options = [arg for arg in sys.argv[1:] if arg.startswith('-')]
 call_params = [arg for arg in sys.argv[1:] if not arg.startswith('-')]
 
-def_filename, json_filename, collection_name, collection_host = call_params[:4]
+marcout_defn_structure, record_to_export, collection_ns, collection_hostname = call_params[:4]
 
-print('MARC export definition file:')
-print('    ' + def_filename)
-print('JSON sourcefile:')
-print('    ' + json_filename)
-print('Collection namespace:')
-print('    ' + collection_name)
-print('Hostname:')
-print('    ' + collection_host)
+verbose = '--verbose' in call_options
 
-if not os.path.isfile(def_filename):
-    print('FATAL ERROR: ' + 'MARC export definition "' + def_filename + '" is not a file.')
-    print(usage)
-    exit(1)
+marcout_content = evaluate_parameter(marcout_defn_structure)
 
-if not os.path.isfile(json_filename):
-    print('FATAL ERROR: ' + 'JSON sourcefile "' + json_filename + '" is not a file.')
-    print(usage)
-    exit(1)
+export_record_content = evaluate_parameter(record_to_export)
 
-print('OK STILL HERE')
+
+if verbose:
+    print('MARC export definition:')
+    print('    ' + marcout_content)
+
+    print('JSON record:')
+    print('    ' + export_record_content)
+
+    print('Collection namespace:')
+    print('    ' + collection_ns)
+    print('Hostname:')
+    print('    ' + collection_hostname)
+
+
+    print('OK STILL HERE')
+
 
 # still here
-export_definitions = read_marcexpdef_file(def_filename)
 
-print('EXPORT DEFINITIONS PARSED SUCCESSFULLY')
 
-print
-print('What do we have?')
-for deftype in export_definitions:
-    print(deftype)
-    print(str(len(export_definitions[deftype])) + ' data items:')
-    if deftype != 'field_templates':
-        for item in export_definitions[deftype]:
-            print(item)
+export_definitions = eval(marcout_content)
 
+if verbose:
+    print('EXPORT DEFINITIONS PARSED SUCCESSFULLY')
+    print
+    print('What do we have?')
+    for deftype in export_definitions:
+        print(deftype)
+        print(str(len(export_definitions[deftype])) + ' data items:')
+        if deftype != 'field_templates':
+            for item in export_definitions[deftype]:
+                print(item)
+        print
     print
 
+jsonobj = json.loads(export_record_content)
 
-print
-jsonsource = None
-with open(json_filename) as json_file:
-    jsonsource = json_file.read()
-    json_file.close()
+if verbose:
+    print('JSON parsed successfully.')
 
-jsonobj = json.loads(jsonsource)
-
-print('JSON parsed successfully.')
-
-print
-print('BLOCKS:')
-for key in export_definitions:
-    print(key)
+    print
+    print('BLOCKS:')
+    for key in export_definitions:
+        print(key)
 
 parameters_structure = export_definitions['known_parameters']
-extracts_structure = export_definitions['json_value_exprs']
+extracts_structure = export_definitions['json_extracted_properties']
 functions_structure = export_definitions['functions']
-extracted_properties = compute_extracts(extracts_structure, jsonobj)
-# for propname in json_properties:
-#     print(propname + ': ' + str(json_properties[propname]))
-print('property values successfully extracted from JSON.')
-
-print
-print('EXTRACTED PROPERTIES:')
-
-for property in extracted_properties:
-    print
-    print(property)
-    print(extracted_properties[property])
-
-print
 
 
-print('FIELD DATA:')
-for marcfield in export_definitions['field_templates']:
-    print
-    print('tag: ' + marcfield['tag'])
-    print('ind_1: ' + marcfield['indicator_1'])
-    print('ind_2: ' + marcfield['indicator_2'])
-    if 'subfields' in marcfield:
-        for subfield in marcfield['subfields']:
-            print(subfield)
-            subcode = subfield.keys()[0]
-            subval = subfield[subfield.keys()[0]]
-            print('  ' + subcode + ': ' + subval)
-            sub_eval = compute_subfield_expr(subval, extracted_properties, functions_structure, parameters_structure)
-            print('  ' + subcode + ': ' + sub_eval)
+export_content = compute_extracts(extracts_structure, jsonobj)
 
-    # current_field['foreach']['eachitem'] = foreachexpr[0]
-    # current_field['foreach']['itemsource'] = foreachexpr[1]
-    # current_field['foreach']['sortby'].append(sortby_expr)
-    # current_field['foreach']['demarcator'] = demarc_expr
-    if 'foreach' in marcfield:
-        print('FOREACH YES')
-        if 'eachitem' in marcfield['foreach']:
-            print('  foreach ' + marcfield['foreach']['eachitem']) 
-        if 'itemsource' in marcfield['foreach']:
-            print('  in ' + marcfield['foreach']['itemsource'] + ':')
-        if 'subfields' in marcfield['foreach']:
-            print('  SUBFIELDS YES')
-            for subfield in marcfield['foreach']['subfields']:
-                print('    ' + str(subfield))
-        if 'sortby' in marcfield['foreach']:
-            print('  SORTBY YES')
-            print('    ' + str(marcfield['foreach']['sortby']))
-        if 'demarcator' in marcfield['foreach']:
-            print(' DEMARCATOR YES')
-            print('    ' + marcfield['foreach']['demarcator'])
+if verbose:
+    print('-------------------------------------------------------')
+print(export_content)

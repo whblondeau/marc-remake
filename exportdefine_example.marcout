@@ -18,6 +18,8 @@ JSON EXTRACTED PROPERTIES------------------------
 
     main_artist_name = album_json['album']['main_artist_name']
 
+    artist_is_group = album_json['album']['artist_is_group']
+
     album_title = album_json['album']['title']
 
     release_date = normalize_date(album_json['album']['release_date'])
@@ -54,9 +56,9 @@ FUNCTIONS----------------------------------------
 
 
 
-EXPORT DEFINE------------------------------------
+MARC FIELD TEMPLATES------------------------------------
 
-IF: (artist is single person)
+IF: NOT artist_is_group
     FIELD: 100
     INDC1: 1
     INDC2: blank
@@ -64,7 +66,7 @@ IF: (artist is single person)
             biblio_name(main_artist_name)
 
 
-IF: (artist is a group)
+IF: artist_is_group
     FIELD: 110
     INDC1: 2
     INDC2: blank
@@ -129,11 +131,12 @@ INDC1: 0
 INDC2: 0
     FOR EACH: track in album_tracks
         EACH-SUBFIELD: t
-            track_title
+            track::title
         EACH-SUBFIELD: g
-            render_duration(track_duration)
-        SORT BY: track_position
-        DEMARC-WITH: '--'
+            render_duration(track::duration)
+        SORT BY: track::position
+        DEMARC WITH: '--'
+        TERMINATE SUBFIELDS WITH: '.'
 
 
 FIELD: 546
